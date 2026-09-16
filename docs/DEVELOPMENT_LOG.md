@@ -6,4 +6,9 @@
 \n- Finalized specification for dual-mode verification pipeline.
 - Established scoring rubric: mathematical checksum (40pts), forensic authenticity (30pts), biometric match (20pts), Sybil clean (10pts).
 - Designed human-in-the-loop fallback mechanism for ambiguous edge cases (e.g. nickname variances).
+\n## Day 2 — September 16, 2026
+### UIDAI Verhoeff Checksum Engine
+- Implemented official dihedral permutation multiplication group ($D_5$) multiplication table, permutation table, and inverse table.
+- Added mathematical validation for 12-digit Indian Aadhaar card numbers.
+- Validated offline validation speed: <0.1ms per check without external database calls.
 \n
