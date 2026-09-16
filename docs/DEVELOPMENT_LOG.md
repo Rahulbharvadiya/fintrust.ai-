@@ -11,4 +11,7 @@
 - Implemented official dihedral permutation multiplication group ($D_5$) multiplication table, permutation table, and inverse table.
 - Added mathematical validation for 12-digit Indian Aadhaar card numbers.
 - Validated offline validation speed: <0.1ms per check without external database calls.
+\n- Created unit test suites for valid and corrupted Aadhaar check digits.
+- Confirmed 100% detection of single-digit transcription errors and adjacent transposition errors.
+- Added support for masked Aadhaar format (XXXX-XXXX-1234).
 \n
