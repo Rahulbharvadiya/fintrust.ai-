@@ -19,4 +19,7 @@
 - Built comprehensive Indian ID regex patterns for Aadhaar numbers, 10-character PAN identifiers, and Voter ID alphanumeric structures.
 - Added individual entity character validation (4th character 'P' for Individual PAN holders).
 - Handled noisy OCR line variations and varying line feed formats.
+\n- Developed heuristic parsing for university student IDs.
+- Extracted graduation year, roll number, academic department, and university domain matching.
+- Added accredited university whitelist (IIT, NIT, BITS, Stanford, MIT, etc.).
 \n
