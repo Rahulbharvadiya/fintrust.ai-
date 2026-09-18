@@ -22,4 +22,9 @@
 \n- Developed heuristic parsing for university student IDs.
 - Extracted graduation year, roll number, academic department, and university domain matching.
 - Added accredited university whitelist (IIT, NIT, BITS, Stanford, MIT, etc.).
+\n## Day 4 — September 18, 2026
+### Deep Forensic Vision & Tamper Detection
+- Integrated Error Level Analysis (ELA) to compute compression variance across image patches.
+- Flagged selective image recompression artifacts commonly introduced by graphic editing suites.
+- Added pixel gradient discontinuity thresholds to detect cropped and pasted text overlays.
 \n
