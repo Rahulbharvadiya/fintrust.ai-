@@ -27,4 +27,7 @@
 - Integrated Error Level Analysis (ELA) to compute compression variance across image patches.
 - Flagged selective image recompression artifacts commonly introduced by graphic editing suites.
 - Added pixel gradient discontinuity thresholds to detect cropped and pasted text overlays.
+\n- Developed typography consistency analyzer detecting mismatched font weights and sizes on official IDs.
+- Created bounding box confidence checks flagging suspicious date-of-birth modifications.
+- Computed overall document authenticity score ($0 - 100$).
 \n
