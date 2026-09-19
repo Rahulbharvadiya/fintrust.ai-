@@ -30,4 +30,9 @@
 \n- Developed typography consistency analyzer detecting mismatched font weights and sizes on official IDs.
 - Created bounding box confidence checks flagging suspicious date-of-birth modifications.
 - Computed overall document authenticity score ($0 - 100$).
+\n## Day 5 — September 19, 2026
+### Biometric Facial Recognition & Face Matching
+- Integrated facial landmark detection mapping eye centers, nose bridge, jawline contours, and mouth orientation.
+- Extracted normalized 128-dimensional facial embeddings from both ID document photo and live selfie.
+- Implemented cosine similarity metric comparing feature vectors.
 \n
