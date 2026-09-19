@@ -35,4 +35,6 @@
 - Integrated facial landmark detection mapping eye centers, nose bridge, jawline contours, and mouth orientation.
 - Extracted normalized 128-dimensional facial embeddings from both ID document photo and live selfie.
 - Implemented cosine similarity metric comparing feature vectors.
+\n- Calibrated threshold curves: $\ge 0.75$ auto-match, $0.55 - 0.74$ review queue, $< 0.55$ biometric mismatch flag.
+- Added anti-spoofing heuristics for blank images, low-contrast frames, and web screenshots.
 \n
