@@ -37,4 +37,9 @@
 - Implemented cosine similarity metric comparing feature vectors.
 \n- Calibrated threshold curves: $\ge 0.75$ auto-match, $0.55 - 0.74$ review queue, $< 0.55$ biometric mismatch flag.
 - Added anti-spoofing heuristics for blank images, low-contrast frames, and web screenshots.
+\n## Day 6 — September 20, 2026
+### Cross-Registration Sybil Detection & Duplicate Graph
+- Created in-memory deduplication index tracking normalized national ID numbers and facial biometric vectors.
+- Implemented collision detection mapping attempts by single hackers to register across multiple teams or aliases.
+- Built Sybil syndicate visualization nodes for organizer fraud radar.
 \n
