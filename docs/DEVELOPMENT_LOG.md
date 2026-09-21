@@ -44,4 +44,9 @@
 - Built Sybil syndicate visualization nodes for organizer fraud radar.
 \n- Verified automated intercept of identical ID credentials submitted under different applicant names.
 - Added immediate trust score penalty (-85pts) upon Sybil detection.
+\n## Day 7 — September 21, 2026
+### Dynamic Eligibility & Zero-False-Positive Rules Engine
+- Built customizable rules engine evaluating min/max applicant ages against event start date.
+- Added university domain allowlist enforcement for student-only hackathon tracks.
+- Implemented zero-false-positive human review routing for minor nickname variants.
 \n
