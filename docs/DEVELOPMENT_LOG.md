@@ -55,4 +55,6 @@
 ### Comprehensive Test Vectors & QA Dataset
 - Formulated 8 realistic evaluation vectors (clean Aadhaar, altered DOB, Sybil reuse, valid College ID, expired ID, mismatched selfie, nickname variance, low light).
 - Embedded mock OCR text blocks matching real AWS Textract and Gemini Vision structures.
+\n- Built `server/test_runner.js` executing 15 deterministic unit test assertions.
+- Verified 100% test pass rate across all verification algorithms.
 \n
