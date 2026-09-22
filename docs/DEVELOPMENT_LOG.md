@@ -51,4 +51,8 @@
 - Implemented zero-false-positive human review routing for minor nickname variants.
 \n- Connected all 6 forensic verification stages into unified asynchronous Express pipeline.
 - Added comprehensive audit log breakdown for compliance reporting.
+\n## Day 8 — September 22, 2026
+### Comprehensive Test Vectors & QA Dataset
+- Formulated 8 realistic evaluation vectors (clean Aadhaar, altered DOB, Sybil reuse, valid College ID, expired ID, mismatched selfie, nickname variance, low light).
+- Embedded mock OCR text blocks matching real AWS Textract and Gemini Vision structures.
 \n
