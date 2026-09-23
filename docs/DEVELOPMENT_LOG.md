@@ -62,4 +62,7 @@
 - Designed high-resolution event pass with unique Ticket ID, tier badges, security hashes, and dynamic QR Code.
 - Integrated HMAC-SHA256 digital signature into QR payload to prevent ticket forgery.
 - Built print pass and pass download capabilities.
+\n- Developed on-site venue desk check-in endpoint verifying attendee QR passes in <150ms.
+- Implemented anti-replay defense flagging already-checked-in attendees on repeated scans.
+- Added digital waiver signature requirement before gate admission.
 \n
