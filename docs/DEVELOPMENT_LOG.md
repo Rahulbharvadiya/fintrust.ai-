@@ -70,4 +70,6 @@
 - Implemented JWT token generation and role-based access control (RBAC) middleware.
 - Built secure registration and login endpoints with password hashing (bcrypt).
 - Implemented social portfolio connectors importing GitHub repositories, languages, and profile metadata.
+\n- Developed searchable skill tag schema supporting languages (React, Go, PyTorch, Rust) and affiliations.
+- Created participant directory endpoint with skill-based filtering.
 \n
