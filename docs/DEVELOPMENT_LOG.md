@@ -65,4 +65,9 @@
 \n- Developed on-site venue desk check-in endpoint verifying attendee QR passes in <150ms.
 - Implemented anti-replay defense flagging already-checked-in attendees on repeated scans.
 - Added digital waiver signature requirement before gate admission.
+\n## Day 10 — September 24, 2026
+### Multi-Tier Role-Based Authentication & Social Import
+- Implemented JWT token generation and role-based access control (RBAC) middleware.
+- Built secure registration and login endpoints with password hashing (bcrypt).
+- Implemented social portfolio connectors importing GitHub repositories, languages, and profile metadata.
 \n
