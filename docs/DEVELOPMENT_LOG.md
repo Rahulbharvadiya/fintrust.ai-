@@ -76,4 +76,6 @@
 ### Team Formation & Collaboration Engine
 - Built filterable matchmaking showcase allowing solo hackers to discover teams seeking complementary skills.
 - Implemented 6-character secret invite codes (e.g. `HACK-XXXX`) for instant team onboarding.
+\n- Enforced strict team member capacity limits (default 4 members).
+- Built automated webhook dispatcher generating Discord Embeds and Slack Blocks on team creation and joins.
 \n
