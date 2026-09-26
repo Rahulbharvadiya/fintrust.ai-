@@ -82,4 +82,6 @@
 ### Live Mentor Helpdesk Queue Console
 - Built real-time guidance ticket queue categorized by technical domains (AI/ML, Web3, Backend, Frontend, Cloud, Pitch).
 - Configured urgency tier prioritization (Low, Medium, High, Critical).
+\n- Implemented mentor ticket claiming lifecycle (`OPEN` -> `CLAIMED` -> `RESOLVED`).
+- Calculated real-time queue SLA metrics and estimated wait times.
 \n
