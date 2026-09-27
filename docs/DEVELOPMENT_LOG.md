@@ -89,4 +89,7 @@
 - Built project submission intake validating public GitHub repository links, video demos, and slide decks.
 - Added synchronized countdown clock enforcing strict event cutoff deadlines.
 - Implemented iterative draft mode without premature lock-in.
+\n- Generated tamper-evident cryptographic receipts (`SHA256:...`) upon submission lock.
+- Built independent receipt verification endpoint (`/api/submissions/:id/verify-receipt`).
+- Added canvas-confetti celebration triggers upon successful lock-in.
 \n
