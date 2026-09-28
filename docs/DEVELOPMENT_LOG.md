@@ -92,4 +92,8 @@
 \n- Generated tamper-evident cryptographic receipts (`SHA256:...`) upon submission lock.
 - Built independent receipt verification endpoint (`/api/submissions/:id/verify-receipt`).
 - Added canvas-confetti celebration triggers upon successful lock-in.
+\n## Day 14 — September 28, 2026
+### Judging Deliberation & Z-Score Normalization
+- Built 4-pillar weighted evaluation rubric (Innovation 30%, Technical Depth 30%, Feasibility 25%, UI/UX 15%).
+- Implemented Blind Review mode masking hacker and university names to eliminate unconscious bias.
 \n
