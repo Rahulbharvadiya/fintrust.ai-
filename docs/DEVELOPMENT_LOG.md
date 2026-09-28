@@ -96,4 +96,7 @@
 ### Judging Deliberation & Z-Score Normalization
 - Built 4-pillar weighted evaluation rubric (Innovation 30%, Technical Depth 30%, Feasibility 25%, UI/UX 15%).
 - Implemented Blind Review mode masking hacker and university names to eliminate unconscious bias.
+\n- Implemented mathematical Z-score normalization standardizing scores across harsh and lenient judges.
+- Added scoring variance detection highlighting controversial submissions for jury deliberation.
+- Built CSV deliberation report exporter.
 \n
