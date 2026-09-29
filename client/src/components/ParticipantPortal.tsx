@@ -3,10 +3,12 @@ import {
   Camera, Upload, CheckCircle, AlertTriangle, AlertOctagon, 
   ShieldCheck, RefreshCw, User, 
   FileText, Sparkles, Eye, Check,
-  CheckCircle2
+  CheckCircle2, RotateCcw, X,
+  Building2, Mail, Phone, CreditCard
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ParticipantTicket } from './ParticipantTicket';
+import { TrustScoreGauge } from './TrustScoreGauge';
 import type { Applicant, RegistrationRecord, TestVector } from '../types';
 
 interface ParticipantPortalProps {
@@ -23,10 +25,10 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
   onOpenTestVectors
 }) => {
   const [applicant, setApplicant] = useState<Applicant>({
-    name: selectedTestVector?.applicant.name || 'Rohan Sharma',
-    email: selectedTestVector?.applicant.email || 'rohan.sharma@gmail.com',
-    phone: selectedTestVector?.applicant.phone || '+91 98765 43210',
-    college: selectedTestVector?.applicant.college || 'National Institute of Technology'
+    name: selectedTestVector?.applicant.name || '',
+    email: selectedTestVector?.applicant.email || '',
+    phone: selectedTestVector?.applicant.phone || '',
+    college: selectedTestVector?.applicant.college || ''
   });
 
   const [docType, setDocType] = useState<string>(selectedTestVector?.docType || 'AADHAAR');
@@ -76,6 +78,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
       const reader = new FileReader();
       reader.onload = (event) => {
         setDocumentImage(event.target?.result as string);
+        setResult(null); // Clear previous result immediately
       };
       reader.readAsDataURL(file);
     }
@@ -87,6 +90,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
       const reader = new FileReader();
       reader.onload = (event) => {
         setSelfieImage(event.target?.result as string);
+        setResult(null); // Clear previous result immediately
       };
       reader.readAsDataURL(file);
     }
@@ -105,6 +109,26 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
       alert('Unable to access webcam. Please upload a photo instead.');
       setIsCameraActive(false);
     }
+  };
+
+  // Stop webcam
+  const stopCamera = () => {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
+      stream.getTracks().forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+    }
+    setIsCameraActive(false);
+  };
+
+  // Retake photo: stops active stream, clears existing selfie, clears any stale verification result, and launches live camera
+  const retakePhoto = async () => {
+    stopCamera();
+    setSelfieImage(null);
+    if (result) {
+      setResult(null);
+    }
+    await startCamera();
   };
 
   // Capture webcam photo
@@ -208,10 +232,10 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
           gap: '16px'
         }}>
           <div>
-            <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
               Welcome, {applicant.name ? applicant.name.split(' ')[0] : 'Applicant'}
             </h1>
-            <p style={{ fontSize: '13px', color: '#64748B', marginTop: '4px' }}>
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>
               Complete your institutional identity and eligibility compliance verification.
             </p>
           </div>
@@ -239,8 +263,8 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
         {/* Selected Test Vector Alert Banner */}
         {selectedTestVector && (
           <div style={{
-            backgroundColor: '#EFF6FF',
-            border: '1px solid #BFDBFE',
+            backgroundColor: 'var(--brand-glow)',
+            border: '1px solid var(--border-color)',
             borderRadius: '8px',
             padding: '14px 18px',
             marginBottom: '24px',
@@ -250,19 +274,19 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
             gap: '12px'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Sparkles size={18} color="#2563EB" />
+              <Sparkles size={18} color="var(--brand-primary)" />
               <div>
                 <span style={{
                   fontSize: '11px',
                   fontWeight: 700,
-                  color: '#2563EB',
+                  color: 'var(--brand-primary)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.04em',
                   fontFamily: 'var(--font-mono)'
                 }}>
                   Active Vector: {selectedTestVector.id}
                 </span>
-                <p style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A', marginTop: '2px' }}>
+                <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
                   {selectedTestVector.label}
                 </p>
               </div>
@@ -272,9 +296,9 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               fontWeight: 600,
               padding: '4px 10px',
               borderRadius: '4px',
-              backgroundColor: '#FFFFFF',
-              color: '#2563EB',
-              border: '1px solid #BFDBFE',
+              backgroundColor: 'var(--bg-surface)',
+              color: 'var(--brand-primary)',
+              border: '1px solid var(--border-color)',
               fontFamily: 'var(--font-mono)'
             }}>
               Expected: {selectedTestVector.expectedOutcome}
@@ -292,8 +316,8 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 width: '64px',
                 height: '64px',
                 borderRadius: '8px',
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #CBD5E1',
+                backgroundColor: 'var(--bg-surface-subtle)',
+                border: '1px solid var(--border-color)',
                 overflow: 'hidden',
                 display: 'flex',
                 alignItems: 'center',
@@ -303,7 +327,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 {documentImage ? (
                   <img src={documentImage} alt="ID Document" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <FileText size={28} color="#64748B" />
+                  <FileText size={28} color="var(--text-muted)" />
                 )}
               </div>
 
@@ -311,16 +335,16 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 <span style={{
                   fontSize: '11px',
                   fontWeight: 700,
-                  color: '#2563EB',
+                  color: 'var(--brand-primary)',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase'
                 }}>
                   Primary Applicant Record
                 </span>
-                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '2px' }}>
                   {applicant.name || 'Enter Legal Name'}
                 </h2>
-                <p style={{ fontSize: '12px', color: '#64748B' }}>
+                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                   Supported Proofs: Aadhaar, College Student ID, Permanent Account Number (PAN)
                 </p>
               </div>
@@ -335,91 +359,182 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
           </div>
 
           {/* Form Inputs Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                Full Legal Name
-              </label>
-              <input
-                type="text"
-                value={applicant.name}
-                onChange={e => setApplicant({ ...applicant, name: e.target.value })}
-                placeholder="Rohan Sharma"
-                id="input-applicant-name"
-              />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '18px' }}>
+            
+            {/* Field 1: Full Legal Name */}
+            <div className="fintech-field-wrapper">
+              <div className="fintech-field-header">
+                <label htmlFor="input-applicant-name" className="fintech-field-label">
+                  <User size={12} color="var(--brand-primary)" />
+                  <span>Full Legal Name</span>
+                </label>
+                {applicant.name ? (
+                  <span className="fintech-field-status">
+                    <Check size={10} strokeWidth={3} />
+                    <span>READY</span>
+                  </span>
+                ) : (
+                  <span style={{ fontSize: '10.5px', color: 'var(--text-dim)', fontWeight: 600 }}>REQUIRED</span>
+                )}
+              </div>
+              <div className="fintech-input-box">
+                <div className="fintech-input-icon">
+                  <User size={16} />
+                </div>
+                <input
+                  type="text"
+                  className="fintech-input-control"
+                  value={applicant.name}
+                  onChange={e => {
+                    setApplicant({ ...applicant, name: e.target.value });
+                    if (result) setResult(null);
+                  }}
+                  placeholder="e.g. Rohan Sharma"
+                  id="input-applicant-name"
+                />
+              </div>
             </div>
 
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                Educational Institution
-              </label>
-              <input
-                type="text"
-                value={applicant.college}
-                onChange={e => setApplicant({ ...applicant, college: e.target.value })}
-                placeholder="Institute of Technology"
-                id="input-applicant-college"
-              />
+            {/* Field 2: Educational Institution */}
+            <div className="fintech-field-wrapper">
+              <div className="fintech-field-header">
+                <label htmlFor="input-applicant-college" className="fintech-field-label">
+                  <Building2 size={12} color="var(--brand-primary)" />
+                  <span>Educational Institution</span>
+                </label>
+                {applicant.college ? (
+                  <span className="fintech-field-status">
+                    <Check size={10} strokeWidth={3} />
+                    <span>ACCREDITED</span>
+                  </span>
+                ) : (
+                  <span style={{ fontSize: '10.5px', color: 'var(--text-dim)', fontWeight: 600 }}>REQUIRED</span>
+                )}
+              </div>
+              <div className="fintech-input-box">
+                <div className="fintech-input-icon">
+                  <Building2 size={16} />
+                </div>
+                <input
+                  type="text"
+                  className="fintech-input-control"
+                  value={applicant.college}
+                  onChange={e => setApplicant({ ...applicant, college: e.target.value })}
+                  placeholder="e.g. National Institute of Technology"
+                  id="input-applicant-college"
+                />
+              </div>
             </div>
 
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                Email Address
-              </label>
-              <input
-                type="email"
-                value={applicant.email}
-                onChange={e => setApplicant({ ...applicant, email: e.target.value })}
-                placeholder="applicant@example.com"
-                id="input-applicant-email"
-              />
+            {/* Field 3: Email Address */}
+            <div className="fintech-field-wrapper">
+              <div className="fintech-field-header">
+                <label htmlFor="input-applicant-email" className="fintech-field-label">
+                  <Mail size={12} color="var(--brand-primary)" />
+                  <span>Email Address</span>
+                </label>
+                {applicant.email ? (
+                  <span className="fintech-field-status">
+                    <Check size={10} strokeWidth={3} />
+                    <span>VALID</span>
+                  </span>
+                ) : (
+                  <span style={{ fontSize: '10.5px', color: 'var(--text-dim)', fontWeight: 600 }}>REQUIRED</span>
+                )}
+              </div>
+              <div className="fintech-input-box">
+                <div className="fintech-input-icon">
+                  <Mail size={16} />
+                </div>
+                <input
+                  type="email"
+                  className="fintech-input-control"
+                  value={applicant.email}
+                  onChange={e => setApplicant({ ...applicant, email: e.target.value })}
+                  placeholder="applicant@example.com"
+                  id="input-applicant-email"
+                />
+              </div>
             </div>
 
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                Phone Number
-              </label>
-              <input
-                type="text"
-                className="font-mono"
-                value={applicant.phone}
-                onChange={e => setApplicant({ ...applicant, phone: e.target.value })}
-                placeholder="+91 98765 43210"
-                id="input-applicant-phone"
-              />
+            {/* Field 4: Phone Number */}
+            <div className="fintech-field-wrapper">
+              <div className="fintech-field-header">
+                <label htmlFor="input-applicant-phone" className="fintech-field-label">
+                  <Phone size={12} color="var(--brand-primary)" />
+                  <span>Phone Number</span>
+                </label>
+                {applicant.phone ? (
+                  <span className="fintech-field-status">
+                    <Check size={10} strokeWidth={3} />
+                    <span>E.164</span>
+                  </span>
+                ) : (
+                  <span style={{ fontSize: '10.5px', color: 'var(--text-dim)', fontWeight: 600 }}>OPTIONAL</span>
+                )}
+              </div>
+              <div className="fintech-input-box">
+                <div className="fintech-input-icon">
+                  <Phone size={16} />
+                </div>
+                <input
+                  type="text"
+                  className="fintech-input-control font-mono"
+                  value={applicant.phone}
+                  onChange={e => setApplicant({ ...applicant, phone: e.target.value })}
+                  placeholder="+91 98765 43210"
+                  id="input-applicant-phone"
+                />
+              </div>
             </div>
+
           </div>
 
           {/* Document Type Selector */}
-          <div style={{ marginTop: '18px' }}>
-            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-              Select Verification Proof Type
-            </label>
+          <div style={{ marginTop: '22px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+              <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
+                <ShieldCheck size={12} color="var(--brand-primary)" />
+                <span>Select Verification Proof Type</span>
+              </label>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                Government Accredited ID Required
+              </span>
+            </div>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
               {[
-                { id: 'AADHAAR', label: 'Aadhaar (UIDAI Verhoeff Checksum)' },
-                { id: 'COLLEGE_ID', label: 'College Student ID' },
-                { id: 'PAN', label: 'Permanent Account Number (PAN)' }
-              ].map(d => (
-                <button
-                  key={d.id}
-                  type="button"
-                  onClick={() => setDocType(d.id)}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: '6px',
-                    fontSize: '13px',
-                    fontWeight: docType === d.id ? 600 : 500,
-                    backgroundColor: docType === d.id ? '#2563EB' : '#FFFFFF',
-                    color: docType === d.id ? '#FFFFFF' : '#475569',
-                    border: docType === d.id ? '1px solid #2563EB' : '1px solid #E2E8F0',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  {d.label}
-                </button>
-              ))}
+                { id: 'AADHAAR', label: 'Aadhaar (UIDAI Checksum)', icon: ShieldCheck },
+                { id: 'COLLEGE_ID', label: 'College Student ID', icon: Building2 },
+                { id: 'PAN', label: 'Permanent Account Number (PAN)', icon: CreditCard }
+              ].map(d => {
+                const Icon = d.icon;
+                const isSel = docType === d.id;
+                return (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => setDocType(d.id)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '9px 16px',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: isSel ? 700 : 500,
+                      backgroundColor: isSel ? 'var(--brand-primary)' : 'var(--bg-surface-subtle)',
+                      color: isSel ? 'var(--bg-page)' : 'var(--text-secondary)',
+                      border: isSel ? '1px solid var(--brand-primary)' : '1px solid var(--border-color)',
+                      cursor: 'pointer',
+                      boxShadow: isSel ? '0 2px 4px rgba(0, 0, 0, 0.1)' : 'none',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <Icon size={14} color={isSel ? 'var(--bg-page)' : 'var(--text-muted)'} />
+                    <span>{d.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -428,10 +543,10 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
         {/* Verification Checklist */}
         <div className="swiss-card" style={{ marginBottom: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0F172A' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)' }}>
               Verification Checklist
             </h3>
-            <span style={{ fontSize: '12px', color: '#64748B' }}>
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {documentImage && selfieImage ? '3 of 3 steps ready' : documentImage || selfieImage ? '2 of 3 steps ready' : '1 of 3 steps ready'}
             </span>
           </div>
@@ -444,15 +559,15 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               justifyContent: 'space-between',
               padding: '12px 14px',
               borderRadius: '6px',
-              backgroundColor: '#F8FAFC',
-              border: '1px solid #E2E8F0'
+              backgroundColor: 'var(--bg-surface-subtle)',
+              border: '1px solid var(--border-color)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
                   width: '24px',
                   height: '24px',
                   borderRadius: '50%',
-                  backgroundColor: applicant.name && applicant.college ? '#10B981' : '#E2E8F0',
+                  backgroundColor: applicant.name && applicant.college ? 'var(--status-ok)' : 'var(--border-color)',
                   color: '#FFFFFF',
                   display: 'flex',
                   alignItems: 'center',
@@ -461,10 +576,10 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                   {applicant.name && applicant.college ? <Check size={14} strokeWidth={3} /> : null}
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
                     Personal Details & Affiliation
                   </h4>
-                  <p style={{ fontSize: '12px', color: '#64748B' }}>
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                     Legal name, educational affiliation, and contact details
                   </p>
                 </div>
@@ -481,15 +596,15 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               justifyContent: 'space-between',
               padding: '12px 14px',
               borderRadius: '6px',
-              backgroundColor: '#F8FAFC',
-              border: '1px solid #E2E8F0'
+              backgroundColor: 'var(--bg-surface-subtle)',
+              border: '1px solid var(--border-color)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
                   width: '24px',
                   height: '24px',
                   borderRadius: '50%',
-                  backgroundColor: documentImage ? '#10B981' : '#E2E8F0',
+                  backgroundColor: documentImage ? 'var(--status-ok)' : 'var(--border-color)',
                   color: '#FFFFFF',
                   display: 'flex',
                   alignItems: 'center',
@@ -498,10 +613,10 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                   {documentImage ? <Check size={14} strokeWidth={3} /> : null}
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
                     Identity Document File ({docType})
                   </h4>
-                  <p style={{ fontSize: '12px', color: '#64748B' }}>
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                     {documentImage ? 'Document photo attached and ready for OCR analysis' : 'Upload document photo or load a sample vector'}
                   </p>
                 </div>
@@ -525,15 +640,15 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               justifyContent: 'space-between',
               padding: '12px 14px',
               borderRadius: '6px',
-              backgroundColor: '#F8FAFC',
-              border: '1px solid #E2E8F0'
+              backgroundColor: 'var(--bg-surface-subtle)',
+              border: '1px solid var(--border-color)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{
                   width: '24px',
                   height: '24px',
                   borderRadius: '50%',
-                  backgroundColor: selfieImage ? '#10B981' : '#E2E8F0',
+                  backgroundColor: selfieImage ? 'var(--status-ok)' : 'var(--border-color)',
                   color: '#FFFFFF',
                   display: 'flex',
                   alignItems: 'center',
@@ -542,25 +657,27 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                   {selfieImage ? <Check size={14} strokeWidth={3} /> : null}
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
                     Biometric Portrait Match
                   </h4>
-                  <p style={{ fontSize: '12px', color: '#64748B' }}>
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                     {selfieImage ? 'Selfie captured for facial vector comparison' : 'Take a live webcam selfie or upload photo'}
                   </p>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: '8px' }}>
                 <button
-                  onClick={startCamera}
+                  type="button"
+                  onClick={selfieImage ? retakePhoto : startCamera}
                   className="btn-secondary"
                   style={{ fontSize: '12px', padding: '6px 12px' }}
                   id="btn-open-camera"
                 >
-                  <Camera size={14} /> Webcam
+                  {selfieImage ? <RotateCcw size={14} /> : <Camera size={14} />}
+                  {selfieImage ? 'Retake Photo' : 'Webcam'}
                 </button>
                 <label className="btn-secondary" style={{ fontSize: '12px', padding: '6px 12px', cursor: 'pointer' }}>
-                  <Upload size={14} /> Photo
+                  <Upload size={14} /> {selfieImage ? 'Replace Photo' : 'Photo'}
                   <input type="file" accept="image/*" onChange={handleSelfieFileUpload} style={{ display: 'none' }} />
                 </label>
               </div>
@@ -575,8 +692,8 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
           <div className="swiss-card">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Camera size={16} color="#2563EB" />
-                <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A' }}>
+                <Camera size={16} color="var(--brand-primary)" />
+                <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                   Biometric Face Capture
                 </h4>
               </div>
@@ -588,8 +705,8 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
             <div style={{
               height: '180px',
               borderRadius: '6px',
-              backgroundColor: '#F8FAFC',
-              border: '1px solid #E2E8F0',
+              backgroundColor: 'var(--bg-surface-subtle)',
+              border: '1px solid var(--border-color)',
               position: 'relative',
               overflow: 'hidden',
               display: 'flex',
@@ -603,39 +720,102 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                     position: 'absolute',
                     width: '120px',
                     height: '150px',
-                    border: '2px dashed #2563EB',
+                    border: '2px dashed var(--brand-primary)',
                     borderRadius: '50%',
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
+                    boxShadow: '0 0 0 9999px rgba(15, 23, 42, 0.35)'
                   }} />
-                  <button
-                    onClick={captureCameraPhoto}
-                    className="btn-primary"
-                    style={{ position: 'absolute', bottom: '10px', padding: '6px 14px', fontSize: '12px' }}
-                  >
-                    <Camera size={14} /> Capture
-                  </button>
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    zIndex: 10
+                  }}>
+                    <button
+                      type="button"
+                      onClick={captureCameraPhoto}
+                      className="btn-primary"
+                      style={{ padding: '6px 14px', fontSize: '12px' }}
+                      id="btn-capture-selfie"
+                    >
+                      <Camera size={14} /> Capture
+                    </button>
+                    <button
+                      type="button"
+                      onClick={stopCamera}
+                      className="btn-secondary"
+                      style={{
+                        padding: '6px 12px',
+                        fontSize: '12px',
+                        backgroundColor: 'var(--bg-surface-elevated)',
+                        color: 'var(--text-primary)',
+                        border: '1px solid var(--border-color)'
+                      }}
+                      id="btn-cancel-camera"
+                    >
+                      <X size={14} /> Cancel
+                    </button>
+                  </div>
                 </>
               ) : selfieImage ? (
                 <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img src={selfieImage} alt="Selfie" style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
-                  <span style={{
+                  
+                  {/* Floating Action Overlay for Retaking Photo */}
+                  <div style={{
                     position: 'absolute',
                     bottom: '8px',
+                    left: '8px',
                     right: '8px',
-                    backgroundColor: '#FFFFFF',
-                    color: '#2563EB',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    padding: '2px 8px',
-                    borderRadius: '4px',
-                    border: '1px solid #BFDBFE'
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '8px',
+                    zIndex: 5
                   }}>
-                    READY
-                  </span>
+                    <button
+                      type="button"
+                      onClick={retakePhoto}
+                      className="btn-secondary"
+                      style={{
+                        fontSize: '11px',
+                        padding: '4px 10px',
+                        backgroundColor: 'var(--bg-surface-elevated)',
+                        color: 'var(--text-primary)',
+                        boxShadow: 'var(--shadow-subtle)',
+                        border: '1px solid var(--border-color)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        cursor: 'pointer'
+                      }}
+                      id="btn-retake-captured-photo"
+                      title="Open webcam to retake your selfie"
+                    >
+                      <RotateCcw size={12} /> Retake Photo
+                    </button>
+
+                    <span style={{
+                      backgroundColor: 'var(--status-ok-bg)',
+                      color: 'var(--status-ok-text)',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      padding: '3px 8px',
+                      borderRadius: '4px',
+                      border: '1px solid var(--status-ok-border)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}>
+                      <Check size={12} /> READY
+                    </span>
+                  </div>
                 </div>
               ) : (
-                <div style={{ textAlign: 'center', color: '#64748B' }}>
-                  <User size={32} color="#94A3B8" style={{ margin: '0 auto 6px' }} />
+                <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+                  <User size={32} color="var(--text-dim)" style={{ margin: '0 auto 6px' }} />
                   <p style={{ fontSize: '12px' }}>No portrait selfie attached</p>
                 </div>
               )}
@@ -646,12 +826,12 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
           <div className="swiss-card">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <FileText size={16} color="#2563EB" />
-                <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A' }}>
+                <FileText size={16} color="var(--brand-primary)" />
+                <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                   Document OCR Stream
                 </h4>
               </div>
-              <span style={{ fontSize: '11px', color: '#2563EB', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--brand-primary)', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
                 LIVE TEXT
               </span>
             </div>
@@ -662,9 +842,9 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               style={{
                 fontSize: '12px',
                 resize: 'none',
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #CBD5E1',
-                color: '#0F172A',
+                backgroundColor: 'var(--bg-surface-subtle)',
+                border: '1px solid var(--border-color)',
+                color: 'var(--text-primary)',
                 height: '180px'
               }}
               value={rawOcrText}
@@ -710,9 +890,9 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
           <div style={{
             padding: '18px 24px',
             borderRadius: '8px',
-            backgroundColor: '#EFF6FF',
-            border: '1px solid #BFDBFE',
-            color: '#1E40AF',
+            backgroundColor: 'var(--brand-glow)',
+            border: '1px solid var(--border-color)',
+            color: 'var(--brand-primary)',
             textAlign: 'center',
             marginBottom: '24px'
           }}>
@@ -722,7 +902,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 Verification Pipeline Active
               </h4>
             </div>
-            <p style={{ fontSize: '12px', color: '#2563EB', fontFamily: 'var(--font-mono)' }}>
+            <p style={{ fontSize: '12px', color: 'var(--brand-primary)', fontFamily: 'var(--font-mono)' }}>
               {verificationStep}
             </p>
           </div>
@@ -732,10 +912,10 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
         {result && !isVerifying && (
           <div className="swiss-card" style={{
             borderLeft: result.status === 'VERIFIED'
-              ? '4px solid #10B981'
+              ? '4px solid var(--status-ok)'
               : result.status === 'REVIEW_NEEDED'
-              ? '4px solid #F59E0B'
-              : '4px solid #EF4444',
+              ? '4px solid var(--status-warn)'
+              : '4px solid var(--status-danger)',
             marginBottom: '28px'
           }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
@@ -752,117 +932,48 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                     {result.statusBadge}
                   </span>
 
-                  <span style={{ fontSize: '12px', color: '#64748B', fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
                     REF ID: {result.id}
                   </span>
                 </div>
 
-                <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>
+                <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>
                   {result.name}
                 </h2>
-                <p style={{ fontSize: '13px', color: '#475569', maxWidth: '680px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--text-secondary)', maxWidth: '680px' }}>
                   {result.decisionReason}
                 </p>
               </div>
 
-              {/* Trust Score Display */}
-              <div style={{
-                textAlign: 'center',
-                padding: '14px 22px',
-                borderRadius: '8px',
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0'
-              }}>
-                <span style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 600 }}>
-                  Verification Score
-                </span>
-                <div style={{
-                  fontSize: '32px',
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-display)',
-                  color: result.trustScore >= 80 ? '#10B981' : result.trustScore >= 55 ? '#F59E0B' : '#EF4444',
-                  lineHeight: '1.2'
-                }}>
-                  {result.trustScore}%
-                </div>
-                <span style={{ fontSize: '11px', color: '#64748B' }}>
-                  {result.trustScore >= 80 ? 'Confidence High' : result.trustScore >= 55 ? 'Manual Sign-off Queue' : 'Discrepancy Detected'}
-                </span>
+              {/* Trust Score Hero Gauge */}
+              <div style={{ width: '280px', minWidth: '260px' }}>
+                <TrustScoreGauge
+                  score={result.trustScore}
+                  breakdown={result.scoreBreakdown}
+                  status={result.status}
+                  label="Trust Verdict Gauge"
+                />
               </div>
             </div>
-
-            {/* Score Breakdown Pillars */}
-            {result.scoreBreakdown && (
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '12px',
-                padding: '16px',
-                backgroundColor: '#F8FAFC',
-                borderRadius: '8px',
-                border: '1px solid #E2E8F0',
-                marginBottom: '20px'
-              }}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
-                    <span style={{ color: '#64748B' }}>Document Authenticity</span>
-                    <span style={{ fontWeight: 600, color: '#0F172A', fontFamily: 'var(--font-mono)' }}>{result.scoreBreakdown.authenticity} / 30</span>
-                  </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${(result.scoreBreakdown.authenticity / 30) * 100}%`, height: '100%', backgroundColor: '#2563EB' }} />
-                  </div>
-                </div>
-
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
-                    <span style={{ color: '#64748B' }}>Biometric Face Match</span>
-                    <span style={{ fontWeight: 600, color: '#0F172A', fontFamily: 'var(--font-mono)' }}>{result.scoreBreakdown.faceBiometrics} / 25</span>
-                  </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${(result.scoreBreakdown.faceBiometrics / 25) * 100}%`, height: '100%', backgroundColor: '#10B981' }} />
-                  </div>
-                </div>
-
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
-                    <span style={{ color: '#64748B' }}>Identity Eligibility</span>
-                    <span style={{ fontWeight: 600, color: '#0F172A', fontFamily: 'var(--font-mono)' }}>{result.scoreBreakdown.identityEligibility} / 25</span>
-                  </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${(result.scoreBreakdown.identityEligibility / 25) * 100}%`, height: '100%', backgroundColor: '#7C3AED' }} />
-                  </div>
-                </div>
-
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
-                    <span style={{ color: '#64748B' }}>Anti-Sybil Deduplication</span>
-                    <span style={{ fontWeight: 600, color: '#0F172A', fontFamily: 'var(--font-mono)' }}>{result.scoreBreakdown.deduplication} / 20</span>
-                  </div>
-                  <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${(result.scoreBreakdown.deduplication / 20) * 100}%`, height: '100%', backgroundColor: '#F59E0B' }} />
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Forensic Tamper Heatmap Overlay */}
             {result.forensics?.isTampered && result.documentImage && (
               <div style={{
                 padding: '16px',
                 borderRadius: '8px',
-                backgroundColor: '#FEF2F2',
-                border: '1px solid #FECACA',
+                backgroundColor: 'var(--status-danger-bg)',
+                border: '1px solid var(--status-danger-border)',
                 marginBottom: '20px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                  <Eye size={16} color="#DC2626" />
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#991B1B' }}>
+                  <Eye size={16} color="var(--status-danger)" />
+                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--status-danger-text)' }}>
                     Forensic Tamper Heatmap Overlay (ELA & Typography Anomaly)
                   </h4>
                 </div>
 
                 <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%' }}>
-                  <img src={result.documentImage} alt="Forensic Analysis" style={{ maxHeight: '200px', borderRadius: '6px', border: '1px solid #EF4444' }} />
+                  <img src={result.documentImage} alt="Forensic Analysis" style={{ maxHeight: '200px', borderRadius: '6px', border: '1px solid var(--status-danger)' }} />
                   {result.forensics.anomalies.map((anom, aIdx) => (
                     <div
                       key={aIdx}
@@ -872,15 +983,15 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                         top: `${anom.boundingBox.y}%`,
                         width: `${anom.boundingBox.width}%`,
                         height: `${anom.boundingBox.height}%`,
-                        border: '2px solid #EF4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.25)',
+                        border: '2px solid var(--status-danger)',
+                        backgroundColor: 'var(--tamper-highlight-bg)',
                         borderRadius: '4px'
                       }}
                       title={anom.description}
                     />
                   ))}
                 </div>
-                <p style={{ fontSize: '12px', color: '#991B1B', marginTop: '8px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--status-danger-text)', marginTop: '8px' }}>
                   Digital manipulation detected in the identity region. Compression artifacts and font baseline jitter do not match original government printing.
                 </p>
               </div>
@@ -891,19 +1002,19 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               <div style={{
                 padding: '14px 16px',
                 borderRadius: '8px',
-                backgroundColor: '#F5F3FF',
-                border: '1px solid #DDD6FE',
+                backgroundColor: 'rgba(124, 58, 237, 0.12)',
+                border: '1px solid rgba(124, 58, 237, 0.35)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
                 marginBottom: '20px'
               }}>
-                <AlertOctagon size={22} color="#7C3AED" />
+                <AlertOctagon size={22} color="#A78BFA" />
                 <div>
-                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#5B21B6' }}>
+                  <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#A78BFA' }}>
                     Sybil Duplicate Graph Triggered
                   </h4>
-                  <p style={{ fontSize: '12px', color: '#6D28D9' }}>
+                  <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
                     Identity document ({result.idNumber}) is already registered to "{result.sybilConflictRecord?.originalApplicantName}". Registration blocked from automated pass issuance.
                   </p>
                 </div>
@@ -927,18 +1038,18 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
         <div className="swiss-card">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <CheckCircle2 size={18} color="#2563EB" />
-              <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0F172A' }}>
+              <CheckCircle2 size={18} color="var(--brand-primary)" />
+              <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)' }}>
                 Application Status
               </h3>
             </div>
-            <span style={{ fontSize: '15px', fontWeight: 700, color: '#2563EB', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--brand-primary)', fontFamily: 'var(--font-mono)' }}>
               {progressPercent}%
             </span>
           </div>
 
-          <div style={{ height: '6px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden', margin: '8px 0 16px' }}>
-            <div style={{ width: `${progressPercent}%`, height: '100%', backgroundColor: '#2563EB', transition: 'width 0.3s ease' }} />
+          <div style={{ height: '6px', backgroundColor: 'var(--border-color)', borderRadius: '3px', overflow: 'hidden', margin: '8px 0 16px' }}>
+            <div style={{ width: `${progressPercent}%`, height: '100%', backgroundColor: 'var(--brand-primary)', transition: 'width 0.3s ease' }} />
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -947,7 +1058,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 width: '18px',
                 height: '18px',
                 borderRadius: '50%',
-                backgroundColor: applicant.name ? '#2563EB' : '#E2E8F0',
+                backgroundColor: applicant.name ? 'var(--brand-primary)' : 'var(--border-color)',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -957,7 +1068,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               }}>
                 {applicant.name ? '✓' : '1'}
               </span>
-              <span style={{ color: applicant.name ? '#0F172A' : '#64748B', fontWeight: applicant.name ? 600 : 500 }}>
+              <span style={{ color: applicant.name ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: applicant.name ? 600 : 500 }}>
                 Applicant Profile
               </span>
             </div>
@@ -967,7 +1078,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 width: '18px',
                 height: '18px',
                 borderRadius: '50%',
-                backgroundColor: documentImage ? '#2563EB' : '#E2E8F0',
+                backgroundColor: documentImage ? 'var(--brand-primary)' : 'var(--border-color)',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -977,7 +1088,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               }}>
                 {documentImage ? '✓' : '2'}
               </span>
-              <span style={{ color: documentImage ? '#0F172A' : '#64748B', fontWeight: documentImage ? 600 : 500 }}>
+              <span style={{ color: documentImage ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: documentImage ? 600 : 500 }}>
                 Identity Proof Upload
               </span>
             </div>
@@ -987,7 +1098,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 width: '18px',
                 height: '18px',
                 borderRadius: '50%',
-                backgroundColor: selfieImage ? '#2563EB' : '#E2E8F0',
+                backgroundColor: selfieImage ? 'var(--brand-primary)' : 'var(--border-color)',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -997,7 +1108,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               }}>
                 {selfieImage ? '✓' : '3'}
               </span>
-              <span style={{ color: selfieImage ? '#0F172A' : '#64748B', fontWeight: selfieImage ? 600 : 500 }}>
+              <span style={{ color: selfieImage ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: selfieImage ? 600 : 500 }}>
                 Biometric Portrait Match
               </span>
             </div>
@@ -1007,7 +1118,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
                 width: '18px',
                 height: '18px',
                 borderRadius: '50%',
-                backgroundColor: result ? '#2563EB' : '#E2E8F0',
+                backgroundColor: result ? 'var(--brand-primary)' : 'var(--border-color)',
                 color: '#FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
@@ -1017,7 +1128,7 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
               }}>
                 {result ? '✓' : '4'}
               </span>
-              <span style={{ color: result ? '#0F172A' : '#64748B', fontWeight: result ? 600 : 500 }}>
+              <span style={{ color: result ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: result ? 600 : 500 }}>
                 Verification & Pass
               </span>
             </div>
@@ -1026,35 +1137,35 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
 
         {/* 2. Verification Radar Card */}
         <div className="swiss-card">
-          <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0F172A', marginBottom: '14px' }}>
+          <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '14px' }}>
             Compliance Radar
           </h3>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 500 }}>Trust Score</span>
-              <p style={{ fontSize: '18px', fontWeight: 700, color: '#2563EB', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: 'var(--bg-surface-subtle)', border: '1px solid var(--border-color)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>Trust Score</span>
+              <p style={{ fontSize: '18px', fontWeight: 700, color: 'var(--brand-primary)', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>
                 {result ? `${result.trustScore}%` : '98.4%'}
               </p>
             </div>
 
-            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 500 }}>Forensic ELA</span>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: result?.forensics?.isTampered ? '#DC2626' : '#059669', marginTop: '6px', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: 'var(--bg-surface-subtle)', border: '1px solid var(--border-color)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>Forensic ELA</span>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: result?.forensics?.isTampered ? 'var(--status-danger-text)' : 'var(--status-ok-text)', marginTop: '6px', fontFamily: 'var(--font-mono)' }}>
                 {result?.forensics?.isTampered ? 'FLAGGED' : 'CLEAN'}
               </p>
             </div>
 
-            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 500 }}>Sybil Graph</span>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: result?.isSybilAttack ? '#7C3AED' : '#2563EB', marginTop: '6px', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: 'var(--bg-surface-subtle)', border: '1px solid var(--border-color)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>Sybil Graph</span>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: result?.isSybilAttack ? '#A78BFA' : 'var(--brand-primary)', marginTop: '6px', fontFamily: 'var(--font-mono)' }}>
                 {result?.isSybilAttack ? 'DUPLICATE' : 'UNIQUE'}
               </p>
             </div>
 
-            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 500 }}>Digital Pass</span>
-              <p style={{ fontSize: '13px', fontWeight: 700, color: result?.status === 'VERIFIED' ? '#059669' : '#64748B', marginTop: '6px', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ padding: '12px', borderRadius: '6px', backgroundColor: 'var(--bg-surface-subtle)', border: '1px solid var(--border-color)' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 500 }}>Digital Pass</span>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: result?.status === 'VERIFIED' ? 'var(--status-ok-text)' : 'var(--text-muted)', marginTop: '6px', fontFamily: 'var(--font-mono)' }}>
                 {result?.status === 'VERIFIED' ? 'ISSUED' : 'PENDING'}
               </p>
             </div>
@@ -1062,14 +1173,14 @@ export const ParticipantPortal: React.FC<ParticipantPortalProps> = ({
         </div>
 
         {/* 3. Event & AI Engine Info Box */}
-        <div className="swiss-card" style={{ backgroundColor: '#F8FAFC' }}>
+        <div className="swiss-card" style={{ backgroundColor: 'var(--bg-surface-subtle)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
-            <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--status-ok)' }} />
+            <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>
               Institutional Compliance Node
             </h4>
           </div>
-          <p style={{ fontSize: '12px', color: '#64748B', lineHeight: '1.4' }}>
+          <p style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>
             Eligibility criteria enforced: Age 18–25 & Student College ID required. Verhoeff D5 mathematical checksum calculated on Aadhaar digits.
           </p>
         </div>

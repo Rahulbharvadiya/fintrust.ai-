@@ -55,6 +55,31 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
     fetchDashboardData();
   }, [onRefreshTrigger]);
 
+  // Keyboard Shortcuts: 'A' to Approve, 'R' to Reject, 'U' to Request Reupload, 'Esc' to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName?.toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      if (!selectedRecord) return;
+
+      if (e.key === 'a' || e.key === 'A') {
+        e.preventDefault();
+        handleOrganizerAction(selectedRecord.id, 'APPROVE');
+      } else if (e.key === 'r' || e.key === 'R') {
+        e.preventDefault();
+        handleOrganizerAction(selectedRecord.id, 'REJECT');
+      } else if (e.key === 'u' || e.key === 'U') {
+        e.preventDefault();
+        handleOrganizerAction(selectedRecord.id, 'REQUEST_REUPLOAD');
+      } else if (e.key === 'Escape') {
+        setSelectedRecord(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedRecord, actionNotes]);
+
   const handleOrganizerAction = async (id: string, action: 'APPROVE' | 'REJECT' | 'REQUEST_REUPLOAD') => {
     try {
       const res = await fetch(`/api/registrations/${id}/action`, {
@@ -103,65 +128,65 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
         
         <div className="swiss-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>Total Applicants</span>
-            <UserCheck size={18} color="#2563EB" />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Total Applicants</span>
+            <UserCheck size={18} color="var(--brand-primary)" />
           </div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#0F172A', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
             {stats.total}
           </div>
-          <span style={{ fontSize: '11px', color: '#64748B' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             Indexed Registrations
           </span>
         </div>
 
         <div className="swiss-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>Auto-Verified</span>
-            <CheckCircle size={18} color="#10B981" />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Auto-Verified</span>
+            <CheckCircle size={18} color="var(--status-ok)" />
           </div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#10B981', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--status-ok)', fontFamily: 'var(--font-mono)' }}>
             {stats.verified} ({stats.autoVerificationRate}%)
           </div>
-          <span style={{ fontSize: '11px', color: '#64748B' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             Instant Verifications
           </span>
         </div>
 
         <div className="swiss-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>Venue Checked-In</span>
-            <QrCode size={18} color="#2563EB" />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Venue Checked-In</span>
+            <QrCode size={18} color="var(--brand-primary)" />
           </div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#2563EB', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--brand-primary)', fontFamily: 'var(--font-mono)' }}>
             {stats.checkedInCount}
           </div>
-          <span style={{ fontSize: '11px', color: '#64748B' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             Physical Gate Scans
           </span>
         </div>
 
         <div className="swiss-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>Review Queue</span>
-            <AlertTriangle size={18} color="#F59E0B" />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Review Queue</span>
+            <AlertTriangle size={18} color="var(--status-warn)" />
           </div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#F59E0B', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--status-warn)', fontFamily: 'var(--font-mono)' }}>
             {stats.reviewQueue}
           </div>
-          <span style={{ fontSize: '11px', color: '#64748B' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             Zero False-Positive Routing
           </span>
         </div>
 
         <div className="swiss-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>Fraud & Sybil Blocked</span>
-            <ShieldAlert size={18} color="#EF4444" />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>Fraud & Sybil Blocked</span>
+            <ShieldAlert size={18} color="var(--status-danger)" />
           </div>
-          <div style={{ fontSize: '24px', fontWeight: 700, color: '#EF4444', fontFamily: 'var(--font-mono)' }}>
+          <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--status-danger)', fontFamily: 'var(--font-mono)' }}>
             {stats.rejected}
           </div>
-          <span style={{ fontSize: '11px', color: '#64748B' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             {stats.sybilBlocked} ID Reuse Prevented
           </span>
         </div>
@@ -207,7 +232,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
           <button
             onClick={() => setFilter('SYBIL')}
             className="btn-secondary"
-            style={{ fontSize: '12px', borderColor: '#DDD6FE', color: '#6D28D9', backgroundColor: '#FFFFFF' }}
+            style={{ fontSize: '12px', borderColor: 'rgba(124, 58, 237, 0.4)', color: '#A78BFA', backgroundColor: 'var(--bg-surface-elevated)' }}
           >
             Filter Sybil Collisions
           </button>
@@ -221,10 +246,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
           {/* Search bar */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '280px', flex: 1, maxWidth: '380px' }}>
             <div style={{ position: 'relative', width: '100%' }}>
-              <Search size={15} color="#64748B" style={{ position: 'absolute', left: '12px', top: '11px' }} />
+              <Search size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '12px', top: '11px' }} />
               <input
                 type="text"
-                style={{ paddingLeft: '36px', backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', fontSize: '13px' }}
+                style={{ paddingLeft: '36px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: '13px' }}
                 placeholder="Search by name, institution, or ID number..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
@@ -249,9 +274,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                   fontSize: '12px',
                   padding: '6px 12px',
                   borderRadius: '6px',
-                  border: filter === f.id ? '1px solid #2563EB' : '1px solid #E2E8F0',
-                  backgroundColor: filter === f.id ? '#2563EB' : '#FFFFFF',
-                  color: filter === f.id ? '#FFFFFF' : f.isAlert ? '#B45309' : f.isSybil ? '#6D28D9' : '#475569',
+                  border: filter === f.id ? '1px solid var(--brand-primary)' : '1px solid var(--border-color)',
+                  backgroundColor: filter === f.id ? 'var(--brand-primary)' : 'var(--bg-surface-subtle)',
+                  color: filter === f.id ? 'var(--bg-page)' : f.isAlert ? 'var(--status-warn-text)' : f.isSybil ? '#A78BFA' : 'var(--text-secondary)',
                   fontWeight: filter === f.id ? 600 : 500,
                   cursor: 'pointer',
                   transition: 'all 0.15s ease'
@@ -270,7 +295,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
               id="btn-export-csv"
               title="Download full registration roster as CSV"
             >
-              <Download size={14} color="#2563EB" />
+              <Download size={14} color="var(--brand-primary)" />
               <span>Export CSV</span>
             </a>
 
@@ -317,13 +342,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                     >
                       {/* Participant */}
                       <td>
-                        <div style={{ fontWeight: 600, color: '#0F172A' }}>{reg.name}</div>
-                        <div style={{ fontSize: '11px', color: '#64748B' }}>{reg.email}</div>
-                        <div style={{ fontSize: '10px', color: '#2563EB', fontFamily: 'var(--font-mono)' }}>{reg.id}</div>
+                        <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{reg.name}</div>
+                        <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{reg.email}</div>
+                        <div style={{ fontSize: '10px', color: 'var(--brand-primary)', fontFamily: 'var(--font-mono)' }}>{reg.id}</div>
                       </td>
 
                       {/* Institution */}
-                      <td style={{ color: '#475569' }}>
+                      <td style={{ color: 'var(--text-secondary)' }}>
                         <div style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={reg.college}>
                           {reg.college}
                         </div>
@@ -331,8 +356,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
 
                       {/* Doc Type & ID */}
                       <td>
-                        <div style={{ fontWeight: 600, fontSize: '12px', color: '#0F172A' }}>{reg.docType}</div>
-                        <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: '#64748B' }}>
+                        <div style={{ fontWeight: 600, fontSize: '12px', color: 'var(--text-primary)' }}>{reg.docType}</div>
+                        <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
                           {reg.idNumber}
                         </div>
                       </td>
@@ -436,46 +461,46 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
-            backgroundColor: '#FFFFFF',
+            backgroundColor: 'var(--bg-surface)',
             borderRadius: '12px',
-            border: '1px solid #E2E8F0',
+            border: '1px solid var(--border-color)',
             boxShadow: 'var(--shadow-dropdown)'
           }}>
             {/* Modal Header */}
             <div style={{
               padding: '18px 24px',
-              borderBottom: '1px solid #E2E8F0',
+              borderBottom: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              backgroundColor: '#FFFFFF'
+              backgroundColor: 'var(--bg-surface)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <ShieldCheck size={22} color="#2563EB" />
+                <ShieldCheck size={22} color="var(--brand-primary)" />
                 <div>
-                  <h2 style={{ fontSize: '17px', fontWeight: 700, color: '#0F172A' }}>
+                  <h2 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>
                     Compliance Forensic Audit: {selectedRecord.name}
                   </h2>
-                  <span style={{ fontSize: '12px', color: '#64748B', fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
                     Registration: {selectedRecord.id} • Submitted {new Date(selectedRecord.timestamp).toLocaleTimeString()}
                   </span>
                 </div>
               </div>
 
               <button onClick={() => setSelectedRecord(null)} className="btn-secondary" style={{ padding: '6px' }}>
-                <X size={16} color="#64748B" />
+                <X size={16} color="var(--text-muted)" />
               </button>
             </div>
 
             {/* Modal Content Body */}
-            <div style={{ padding: '24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', backgroundColor: '#F8FAFC' }}>
+            <div style={{ padding: '24px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', backgroundColor: 'var(--bg-page)' }}>
               
               {/* Decision & Score Summary Header */}
               <div style={{
                 padding: '16px 20px',
                 borderRadius: '8px',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0',
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-color)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -483,17 +508,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                 gap: '12px'
               }}>
                 <div>
-                  <span style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', color: '#64748B' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
                     Current Engine Verdict
                   </span>
-                  <p style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A', marginTop: '2px' }}>
+                  <p style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginTop: '2px' }}>
                     {selectedRecord.decisionReason}
                   </p>
                 </div>
 
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>CONFIDENCE SCORE</div>
-                  <div style={{ fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-mono)', color: '#2563EB' }}>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600 }}>CONFIDENCE SCORE</div>
+                  <div style={{ fontSize: '24px', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--brand-primary)' }}>
                     {selectedRecord.trustScore}%
                   </div>
                 </div>
@@ -503,9 +528,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px' }}>
                 
                 {/* Left: Document Image with Forensic Heatmap Hotspots */}
-                <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0' }}>
+                <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A' }}>
+                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                       Document Forensic Scan ({selectedRecord.docType})
                     </h4>
                     {selectedRecord.forensics?.isTampered && (
@@ -519,12 +544,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                     position: 'relative',
                     borderRadius: '6px',
                     overflow: 'hidden',
-                    backgroundColor: '#F8FAFC',
+                    backgroundColor: 'var(--bg-surface-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     minHeight: '220px',
-                    border: '1px solid #E2E8F0'
+                    border: '1px solid var(--border-color)'
                   }}>
                     {selectedRecord.documentImage ? (
                       <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -542,15 +567,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                               top: `${anom.boundingBox.y}%`,
                               width: `${anom.boundingBox.width}%`,
                               height: `${anom.boundingBox.height}%`,
-                              border: '2px solid #EF4444',
-                              backgroundColor: 'rgba(239, 68, 68, 0.25)',
+                              border: '2px solid var(--status-danger)',
+                              backgroundColor: 'var(--tamper-highlight-bg)',
                               borderRadius: '3px'
                             }}
                           />
                         ))}
                       </div>
                     ) : (
-                      <span style={{ color: '#64748B', fontSize: '13px' }}>No document image buffer</span>
+                      <span style={{ color: 'var(--text-muted)', fontSize: '13px' }}>No document image buffer</span>
                     )}
                   </div>
 
@@ -560,10 +585,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                         <div key={i} style={{
                           padding: '8px 12px',
                           borderRadius: '6px',
-                          backgroundColor: '#FEF2F2',
-                          border: '1px solid #FECACA',
+                          backgroundColor: 'var(--status-danger-bg)',
+                          border: '1px solid var(--status-danger-border)',
                           fontSize: '11px',
-                          color: '#991B1B',
+                          color: 'var(--status-danger-text)',
                           marginBottom: '6px'
                         }}>
                           <strong>[{anom.type}]</strong> {anom.description}
@@ -571,7 +596,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                       ))}
                     </div>
                   ) : (
-                    <div style={{ marginTop: '10px', fontSize: '12px', color: '#059669', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ marginTop: '10px', fontSize: '12px', color: 'var(--status-ok-text)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle size={14} />
                       <span>Typography baseline, ELA compression, and layout checks passed.</span>
                     </div>
@@ -579,16 +604,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                 </div>
 
                 {/* Right: Biometric Facial Match Radar */}
-                <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0' }}>
+                <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A' }}>
+                    <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                       Biometric Face Verification
                     </h4>
                     <span style={{
                       fontSize: '11px',
                       fontWeight: 600,
                       fontFamily: 'var(--font-mono)',
-                      color: selectedRecord.biometrics?.faceMatchStatus === 'REJECTED_MISMATCH' ? '#DC2626' : '#059669'
+                      color: selectedRecord.biometrics?.faceMatchStatus === 'REJECTED_MISMATCH' ? 'var(--status-danger-text)' : 'var(--status-ok-text)'
                     }}>
                       Cosine Match: {selectedRecord.biometrics?.similarityScore || 93}%
                     </span>
@@ -597,12 +622,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                   <div style={{
                     borderRadius: '6px',
                     overflow: 'hidden',
-                    backgroundColor: '#F8FAFC',
+                    backgroundColor: 'var(--bg-surface-subtle)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     minHeight: '220px',
-                    border: '1px solid #E2E8F0',
+                    border: '1px solid var(--border-color)',
                     padding: '10px'
                   }}>
                     {selectedRecord.selfieImage ? (
@@ -614,11 +639,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                         />
                       </div>
                     ) : (
-                      <span style={{ color: '#64748B', fontSize: '13px' }}>No selfie image recorded</span>
+                      <span style={{ color: 'var(--text-muted)', fontSize: '13px' }}>No selfie image recorded</span>
                     )}
                   </div>
 
-                  <div style={{ marginTop: '10px', fontSize: '12px', color: '#475569' }}>
+                  <div style={{ marginTop: '10px', fontSize: '12px', color: 'var(--text-secondary)' }}>
                     {selectedRecord.biometrics?.reason || 'Facial geometry matched with official document portrait.'}
                   </div>
                 </div>
@@ -626,26 +651,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
               </div>
 
               {/* Parsed Fields Audit Box */}
-              <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0' }}>
-                <h4 style={{ fontSize: '13px', fontWeight: 600, color: '#0F172A', marginBottom: '10px' }}>
+              <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)' }}>
+                <h4 style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '10px' }}>
                   Extracted Document Fields
                 </h4>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', fontSize: '12px' }}>
                   <div>
-                    <span style={{ color: '#64748B' }}>Extracted Name: </span>
-                    <strong style={{ color: '#0F172A' }}>{selectedRecord.parsedFields?.name || selectedRecord.name}</strong>
+                    <span style={{ color: 'var(--text-muted)' }}>Extracted Name: </span>
+                    <strong style={{ color: 'var(--text-primary)' }}>{selectedRecord.parsedFields?.name || selectedRecord.name}</strong>
                   </div>
                   <div>
-                    <span style={{ color: '#64748B' }}>Extracted DOB: </span>
-                    <strong style={{ color: '#0F172A' }}>{selectedRecord.dob || 'N/A'}</strong>
+                    <span style={{ color: 'var(--text-muted)' }}>Extracted DOB: </span>
+                    <strong style={{ color: 'var(--text-primary)' }}>{selectedRecord.dob || 'N/A'}</strong>
                   </div>
                   <div>
-                    <span style={{ color: '#64748B' }}>ID Number: </span>
-                    <strong style={{ color: '#2563EB', fontFamily: 'var(--font-mono)' }}>{selectedRecord.idNumber}</strong>
+                    <span style={{ color: 'var(--text-muted)' }}>ID Number: </span>
+                    <strong style={{ color: 'var(--brand-primary)', fontFamily: 'var(--font-mono)' }}>{selectedRecord.idNumber}</strong>
                   </div>
                   <div>
-                    <span style={{ color: '#64748B' }}>Institution: </span>
-                    <strong style={{ color: '#0F172A' }}>{selectedRecord.college}</strong>
+                    <span style={{ color: 'var(--text-muted)' }}>Institution: </span>
+                    <strong style={{ color: 'var(--text-primary)' }}>{selectedRecord.college}</strong>
                   </div>
                 </div>
               </div>
@@ -654,10 +679,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
               <div style={{
                 padding: '16px',
                 borderRadius: '8px',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0'
+                backgroundColor: 'var(--bg-surface)',
+                border: '1px solid var(--border-color)'
               }}>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>
                   Compliance Audit Note (optional)
                 </label>
                 <input
@@ -680,7 +705,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onRefreshTrigger
                       className="btn-secondary"
                       id="btn-action-venue-checkin"
                     >
-                      <QrCode size={14} color="#2563EB" /> {selectedRecord.checkInStatus === 'CHECKED_IN_AT_DESK' ? 'Checked-In at Venue' : 'Mark Venue Checked-In'}
+                      <QrCode size={14} color="var(--brand-primary)" /> {selectedRecord.checkInStatus === 'CHECKED_IN_AT_DESK' ? 'Checked-In at Venue' : 'Mark Venue Checked-In'}
                     </button>
                   )}
 

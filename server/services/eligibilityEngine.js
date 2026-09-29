@@ -120,19 +120,21 @@ function evaluateEligibility({
 }) {
   let score = 0;
   const breakdown = {
-    authenticity: 0, // max 30
-    faceBiometrics: 0, // max 25
-    identityEligibility: 0, // max 25
-    deduplication: 0 // max 20
+    authenticity: 0, // 0 - 100%
+    faceBiometrics: 0, // 0 - 100%
+    identityEligibility: 0, // 0 - 100%
+    deduplication: 0 // 0 - 100%
   };
 
   const decisionReasons = [];
   const flags = [];
   let isHardBlocked = false;
 
-  // 1. Authenticity & Forensics Check (Weight: 30 pts)
-  const authPercent = forensicResults.authenticityScore / 100;
-  breakdown.authenticity = Math.round(authPercent * 30);
+  // 1. Authenticity & Forensics Check (Scenario 1: 0 - 100%)
+  const rawAuthScore = typeof forensicResults.authenticityScore === 'number'
+    ? forensicResults.authenticityScore
+    : 90;
+  breakdown.authenticity = Math.max(0, Math.min(100, Math.round(rawAuthScore)));
 
   if (forensicResults.isTampered) {
     isHardBlocked = true;
@@ -144,44 +146,47 @@ function evaluateEligibility({
     decisionReasons.push('Digital alteration / tampering detected on document.');
   }
 
-  // 2. Biometric Face Verification (Weight: 25 pts)
+  // 2. Biometric Face Verification (Scenario 2: 0 - 100%)
   if (faceMatchResults.performed) {
-    const facePercent = faceMatchResults.similarityScore / 100;
-    breakdown.faceBiometrics = Math.round(facePercent * 25);
+    const rawFaceScore = typeof faceMatchResults.similarityScore === 'number'
+      ? faceMatchResults.similarityScore
+      : 90;
+    breakdown.faceBiometrics = Math.max(0, Math.min(100, Math.round(rawFaceScore)));
 
     if (!faceMatchResults.isMatch) {
       flags.push({
         type: 'FACE_MISMATCH',
         severity: 'CRITICAL',
-        message: faceMatchResults.reason
+        message: faceMatchResults.reason || 'Biometric Face Mismatch'
       });
       decisionReasons.push('Selfie biometric does not match photo on ID card.');
       isHardBlocked = true;
     }
   } else {
-    // Selfie not required or not provided
-    breakdown.faceBiometrics = 20;
+    // Selfie not provided or not performed yet: Neutral 100% so missing selfie does not unfairly penalize
+    breakdown.faceBiometrics = 100;
   }
 
-  // 3. Deduplication & Sybil Defense (Weight: 20 pts)
+  // 3. Deduplication & Sybil Defense (Scenario 3: 0 - 100%)
   if (dedupResults.isSybilAttack) {
     isHardBlocked = true;
     breakdown.deduplication = 0;
-    flags.push(...dedupResults.flags);
+    flags.push(...(dedupResults.flags || []));
     decisionReasons.push('Sybil attack: This ID has already been registered under a different applicant name.');
   } else if (dedupResults.isDuplicate) {
     isHardBlocked = true;
-    breakdown.deduplication = 5;
-    flags.push(...dedupResults.flags);
+    breakdown.deduplication = 25;
+    flags.push(...(dedupResults.flags || []));
     decisionReasons.push('Duplicate registration: This ID is already registered for this event.');
   } else {
-    breakdown.deduplication = 20;
+    // Unique, zero duplicates found -> 100% clean
+    breakdown.deduplication = 100;
   }
 
-  // 4. Age & Identity Eligibility Check (Weight: 25 pts)
-  let eligibilityPoints = 0;
-  const applicantName = applicant.name || '';
-  const docName = parsedDoc.fields.name || '';
+  // 4. Age & Identity Eligibility Check (Scenario 4: 0 - 100%)
+  let eligibilityPoints = 0; // max 25
+  const applicantName = (applicant.name || '').trim();
+  const docName = (parsedDoc.fields.name || '').trim();
   const nameComp = calculateNameMatchScore(applicantName, docName);
 
   if (nameComp.matchType === 'EXACT' || nameComp.score >= 95) {
@@ -193,7 +198,11 @@ function evaluateEligibility({
       severity: 'MEDIUM',
       message: `Name discrepancy: Form says "${applicantName}", ID says "${docName}" (${nameComp.score}% match). Sent to Organizer Review Queue to prevent false rejection.`
     });
+  } else if (!docName || !applicantName) {
+    // If document name wasn't extracted via OCR or applicant name wasn't provided yet
+    eligibilityPoints += 7;
   } else {
+    eligibilityPoints += 2;
     flags.push({
       type: 'NAME_MISMATCH',
       severity: 'HIGH',
@@ -220,13 +229,13 @@ function evaluateEligibility({
       });
     }
   } else {
-    // Missing DOB
+    // Missing DOB - assign 10 points out of 15 (neutral partial credit)
     flags.push({
       type: 'MISSING_DOB',
       severity: 'MEDIUM',
       message: 'Date of Birth could not be parsed from document.'
     });
-    eligibilityPoints += 5;
+    eligibilityPoints += 10;
   }
 
   // Student requirement
@@ -241,10 +250,17 @@ function evaluateEligibility({
     }
   }
 
-  breakdown.identityEligibility = Math.min(25, eligibilityPoints);
+  // Scale eligibilityPoints (max 25) to 0 - 100%
+  breakdown.identityEligibility = Math.max(0, Math.min(100, Math.round((eligibilityPoints / 25) * 100)));
 
-  // Total Trust Score (0 - 100)
-  score = breakdown.authenticity + breakdown.faceBiometrics + breakdown.deduplication + breakdown.identityEligibility;
+  // Total Trust Score (0 - 100): True average of all 4 scenarios!
+  const scenarioScores = [
+    breakdown.authenticity,
+    breakdown.faceBiometrics,
+    breakdown.identityEligibility,
+    breakdown.deduplication
+  ];
+  score = Math.round(scenarioScores.reduce((sum, s) => sum + s, 0) / scenarioScores.length);
   score = Math.max(0, Math.min(100, score));
 
   // Determine final status
@@ -263,7 +279,7 @@ function evaluateEligibility({
   } else {
     finalStatus = 'VERIFIED';
     statusBadge = 'AUTO-VERIFIED';
-    humanReadableSummary = `Auto-Approved (Trust Score: ${score}%): Document authentic, age (${calculatedAge}) eligible, biometric match confirmed, and zero duplicate registrations found.`;
+    humanReadableSummary = `Auto-Approved (Trust Score: ${score}%): Document authentic, age (${calculatedAge || 'verified'}) eligible, biometric match confirmed, and zero duplicate registrations found.`;
   }
 
   return {

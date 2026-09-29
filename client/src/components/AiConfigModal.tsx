@@ -71,46 +71,46 @@ export const AiConfigModal: React.FC<AiConfigModalProps> = ({ isOpen, onClose })
         maxWidth: '620px',
         maxHeight: '92vh',
         overflowY: 'auto',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'var(--bg-surface)',
         borderRadius: '12px',
-        border: '1px solid #E2E8F0',
+        border: '1px solid var(--border-color)',
         boxShadow: 'var(--shadow-dropdown)'
       }}>
         {/* Header */}
         <div style={{
           padding: '18px 24px',
-          borderBottom: '1px solid #E2E8F0',
+          borderBottom: '1px solid var(--border-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          backgroundColor: '#FFFFFF'
+          backgroundColor: 'var(--bg-surface)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <Cpu size={20} color="#2563EB" />
+            <Cpu size={20} color="var(--brand-primary)" />
             <div>
-              <h2 style={{ fontSize: '17px', fontWeight: 700, color: '#0F172A' }}>
+              <h2 style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>
                 AI Trust Engine Configuration
               </h2>
-              <span style={{ fontSize: '12px', color: '#64748B' }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 Multi-Modal Intelligence Stack & API Credentials
               </span>
             </div>
           </div>
           <button onClick={onClose} className="btn-secondary" style={{ padding: '6px' }}>
-            <X size={16} color="#64748B" />
+            <X size={16} color="var(--text-muted)" />
           </button>
         </div>
 
         {/* Body */}
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', backgroundColor: '#F8FAFC' }}>
+        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '18px', backgroundColor: 'var(--bg-page)' }}>
           
           {message && (
             <div style={{
               padding: '12px 16px',
               borderRadius: '6px',
-              backgroundColor: '#EFF6FF',
-              border: '1px solid #BFDBFE',
-              color: '#1E40AF',
+              backgroundColor: 'var(--brand-glow)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--brand-primary)',
               fontSize: '13px'
             }}>
               {message}
@@ -118,30 +118,30 @@ export const AiConfigModal: React.FC<AiConfigModalProps> = ({ isOpen, onClose })
           )}
 
           {/* AI Stack Breakdown Explanation */}
-          <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Zap size={16} color="#2563EB" />
+          <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Zap size={16} color="var(--brand-primary)" />
               <span>Engine Processing Architecture</span>
             </h3>
-            <ul style={{ fontSize: '12.5px', color: '#475569', display: 'flex', flexDirection: 'column', gap: '6px', paddingLeft: '18px' }}>
+            <ul style={{ fontSize: '12.5px', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '6px', paddingLeft: '18px' }}>
               <li>
-                <strong style={{ color: '#0F172A' }}>Google Gemini Multimodal Vision:</strong> AI-powered document inspection, layout recognition, and zero-shot accreditation.
+                <strong style={{ color: 'var(--text-primary)' }}>Google Gemini Multimodal Vision:</strong> AI-powered document inspection, layout recognition, and zero-shot accreditation.
               </li>
               <li>
-                <strong style={{ color: '#0F172A' }}>Local Computer Vision & Forensics:</strong> Error Level Analysis (ELA), typography consistency analysis, and biometric facial vector comparison.
+                <strong style={{ color: 'var(--text-primary)' }}>Local Computer Vision & Forensics:</strong> Error Level Analysis (ELA), typography consistency analysis, and biometric facial vector comparison.
               </li>
               <li>
-                <strong style={{ color: '#0F172A' }}>Official UIDAI Verhoeff Checksum:</strong> Dihedral group mathematical validation for government identification numbers.
+                <strong style={{ color: 'var(--text-primary)' }}>Official UIDAI Verhoeff Checksum:</strong> Dihedral group mathematical validation for government identification numbers.
               </li>
             </ul>
           </div>
 
           {/* Gemini API Configuration */}
-          <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0' }}>
+          <div style={{ padding: '16px', borderRadius: '8px', backgroundColor: 'var(--bg-surface)', border: '1px solid var(--border-color)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Key size={16} color="#2563EB" />
-                <h4 style={{ fontSize: '14px', fontWeight: 600, color: '#0F172A' }}>
+                <Key size={16} color="var(--brand-primary)" />
+                <h4 style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                   Google Gemini Multimodal API Key
                 </h4>
               </div>
@@ -150,7 +150,7 @@ export const AiConfigModal: React.FC<AiConfigModalProps> = ({ isOpen, onClose })
               </span>
             </div>
 
-            <p style={{ fontSize: '12px', color: '#64748B', marginBottom: '12px' }}>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '12px' }}>
               Enter an optional Gemini API key to enable cloud multimodal analysis alongside local computer vision models.
             </p>
 

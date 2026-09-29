@@ -35,8 +35,8 @@ export const ParticipantTicket: React.FC<ParticipantTicketProps> = ({ ticket, re
     <div style={{ marginTop: '24px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Award size={18} color="#2563EB" />
-          <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#0F172A' }}>
+          <Award size={18} color="var(--brand-primary)" />
+          <h3 style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)' }}>
             Official Digital Participant Credential Pass
           </h3>
         </div>
@@ -51,27 +51,27 @@ export const ParticipantTicket: React.FC<ParticipantTicketProps> = ({ ticket, re
       <div style={{
         maxWidth: '640px',
         margin: '0 auto',
-        backgroundColor: '#FFFFFF',
-        border: '1px solid #E2E8F0',
+        backgroundColor: 'var(--bg-surface)',
+        border: '1px solid var(--border-color)',
         borderRadius: '12px',
         overflow: 'hidden',
         boxShadow: 'var(--shadow-card)'
       }}>
         {/* Top Header Banner */}
         <div style={{
-          backgroundColor: '#2563EB',
+          backgroundColor: 'var(--brand-primary)',
           padding: '24px 28px',
           color: '#FFFFFF'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
-              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#DBEAFE' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.85)' }}>
                 INSTITUTIONAL CREDENTIAL PASS
               </span>
               <h2 style={{ fontSize: '20px', fontWeight: 700, marginTop: '2px', letterSpacing: '-0.02em', color: '#FFFFFF' }}>
                 {ticket.eventName}
               </h2>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#BFDBFE', marginTop: '4px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(255, 255, 255, 0.9)', marginTop: '4px' }}>
                 <MapPin size={13} />
                 <span>{ticket.venueDesk}</span>
               </div>
@@ -85,50 +85,50 @@ export const ParticipantTicket: React.FC<ParticipantTicketProps> = ({ ticket, re
               border: '1px solid rgba(255, 255, 255, 0.3)',
               color: '#FFFFFF'
             }}>
-              <span style={{ fontSize: '10px', display: 'block', textTransform: 'uppercase', color: '#DBEAFE', fontWeight: 600 }}>TRUST SCORE</span>
+              <span style={{ fontSize: '10px', display: 'block', textTransform: 'uppercase', color: 'rgba(255, 255, 255, 0.85)', fontWeight: 600 }}>TRUST SCORE</span>
               <span style={{ fontSize: '18px', fontWeight: 700 }}>{ticket.trustScore}%</span>
             </div>
           </div>
         </div>
 
         {/* Ticket Details & QR Grid */}
-        <div style={{ padding: '24px 28px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '24px', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
+        <div style={{ padding: '24px 28px', display: 'grid', gridTemplateColumns: '1fr auto', gap: '24px', alignItems: 'center', backgroundColor: 'var(--bg-surface)' }}>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div>
-              <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
                 ATTENDEE NAME
               </span>
-              <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A' }}>
+              <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>
                 {ticket.attendeeName}
               </h3>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <div>
-                <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
                   INSTITUTION
                 </span>
-                <p style={{ fontSize: '13px', color: '#334155', fontWeight: 500 }}>
+                <p style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                   {ticket.college}
                 </p>
               </div>
 
               <div>
-                <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>
                   VERIFIED PROOF
                 </span>
-                <p style={{ fontSize: '13px', color: '#2563EB', fontWeight: 600 }}>
+                <p style={{ fontSize: '13px', color: 'var(--brand-primary)', fontWeight: 600 }}>
                   {ticket.docTypeVerified}
                 </p>
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '11px', color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                 CRYPTOGRAPHIC SIGNATURE
               </span>
-              <p className="font-mono" style={{ fontSize: '11px', color: '#0F172A', wordBreak: 'break-all', backgroundColor: '#F8FAFC', padding: '6px 10px', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
+              <p className="font-mono" style={{ fontSize: '11px', color: 'var(--text-primary)', wordBreak: 'break-all', backgroundColor: 'var(--bg-surface-subtle)', padding: '6px 10px', borderRadius: '4px', border: '1px solid var(--border-color)' }}>
                 {ticket.cryptoSignature}
               </p>
             </div>
@@ -161,8 +161,8 @@ export const ParticipantTicket: React.FC<ParticipantTicketProps> = ({ ticket, re
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#F8FAFC',
-            border: '1px solid #E2E8F0',
+            backgroundColor: 'var(--bg-surface-subtle)',
+            border: '1px solid var(--border-color)',
             padding: '16px',
             borderRadius: '8px'
           }}>
@@ -179,7 +179,7 @@ export const ParticipantTicket: React.FC<ParticipantTicketProps> = ({ ticket, re
               fontSize: '11px',
               fontWeight: 600,
               fontFamily: 'var(--font-mono)',
-              color: '#64748B',
+              color: 'var(--text-muted)',
               marginTop: '8px'
             }}>
               PASS: {ticket.ticketId}

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 
+// Version 1 Core Forensic & Identity Verification Services
 const { parseDocument } = require('./services/documentParser');
 const { analyzeDocumentForensics } = require('./services/forensicEngine');
 const { verifyFaceMatch } = require('./services/faceMatcher');
@@ -13,23 +14,67 @@ const awsTextractService = require('./services/realAwsService');
 const geminiVisionService = require('./services/geminiVisionService');
 const { generateParticipantTicket } = require('./services/ticketService');
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+// Version 2 Configuration, Security Middleware & Adapters
+const { PORT, CORS_ORIGIN, RATE_LIMITS } = require('./config');
+const { applySecurityHeaders, sanitizeRequestBody } = require('./middleware/securityMiddleware');
+const { createRateLimiter } = require('./middleware/rateLimiter');
+const { checkSupabaseHealth } = require('./db/supabaseClient');
+const db = require('./db/databaseAdapter');
 
-app.use(cors());
+// Version 2 Specialized Route Modules
+const authRoutes = require('./routes/authRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const teamRoutes = require('./routes/teamRoutes');
+const helpdeskRoutes = require('./routes/helpdeskRoutes');
+const submissionRoutes = require('./routes/submissionRoutes');
+const judgingRoutes = require('./routes/judgingRoutes');
+const liveOpsRoutes = require('./routes/liveOpsRoutes');
+const checkInRoutes = require('./routes/checkInRoutes');
+
+const app = express();
+
+// 1. Security & Core Middleware
+app.use(applySecurityHeaders);
+app.use(cors({ origin: CORS_ORIGIN, credentials: true }));
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' }));
+app.use(sanitizeRequestBody);
+
+// Rate Limiters
+const generalLimiter = createRateLimiter(RATE_LIMITS.GENERAL.windowMs, RATE_LIMITS.GENERAL.max, 'general');
+const authLimiter = createRateLimiter(RATE_LIMITS.AUTH.windowMs, RATE_LIMITS.AUTH.max, 'auth');
+const verifyLimiter = createRateLimiter(RATE_LIMITS.VERIFY.windowMs, RATE_LIMITS.VERIFY.max, 'verify');
+
+app.use('/api/', generalLimiter);
+app.use('/api/auth/', authLimiter);
+app.use('/api/verify', verifyLimiter);
 
 // Active event configuration state
 let currentEventConfig = { ...DEFAULT_EVENT_CONFIG };
 
-// 1. Health check & Engine status
-app.get('/api/health', (req, res) => {
+// ==============================================================================
+// 2. VERSION 2 ROUTE MOUNTS
+// ==============================================================================
+app.use('/api/auth', authRoutes);
+app.use('/api/profiles', profileRoutes);
+app.use('/api/teams', teamRoutes);
+app.use('/api/helpdesk', helpdeskRoutes);
+app.use('/api/submissions', submissionRoutes);
+app.use('/api/judging', judgingRoutes);
+app.use('/api/live', liveOpsRoutes);
+app.use('/api/gate', checkInRoutes);
+
+// ==============================================================================
+// 3. HEALTH CHECK & ENGINE STATUS
+// ==============================================================================
+app.get('/api/health', async (req, res) => {
+  const supabaseHealth = await checkSupabaseHealth();
   res.json({
     status: 'ONLINE',
-    service: 'fintrust.ai Identity & Eligibility Trust Engine',
-    version: '2.5.0-production',
+    service: 'fintrust.ai & Hackathon OS Live Engine',
+    version: '2.0.0-production-enterprise',
     activeEvent: currentEventConfig.eventName,
+    supabase: supabaseHealth,
     aiServices: {
       awsTextract: awsTextractService.getStatus(),
       geminiVision: geminiVisionService.getStatus()
@@ -41,13 +86,22 @@ app.get('/api/health', (req, res) => {
       'Sybil & Cross-Registration ID Reuse Graph',
       'Biometric Facial Landmark & Cosine Similarity Match',
       'Configurable Event Eligibility Rules Engine',
-      'Multi-Engine Document OCR & Vision Processing',
-      'Digital Cryptographic Participant Event Pass & Venue Desk Check-In'
+      'Multi-Tier Role-Based Authentication & Social Portfolio Import (GitHub/Google/LinkedIn)',
+      'Searchable Skill Graph & Track Selection',
+      'Team Matchmaking, Member Cap Enforcement & Webhook Provisioning (Discord/Slack)',
+      'Live Mentor Helpdesk Ticketing Queue with Domain Routing',
+      'Structured Project Submission Pipeline with Git Verification & SHA-256 Cryptographic Receipts',
+      'Weighted Rubric Scoring Console with Blind Review Mode',
+      'Z-Score Normalized Leaderboards & Deliberation Variance Analytics',
+      'Live Operations Timeline with Schedule Shift Sync & Real-Time Announcements (SSE)',
+      'Digital Cryptographic Event Pass & Gate Check-In with Legal Waiver Verification'
     ]
   });
 });
 
-// 2. Preloaded Test Vectors
+// ==============================================================================
+// 4. PRELOADED TEST VECTORS & AI STATUS
+// ==============================================================================
 app.get('/api/test-vectors', (req, res) => {
   res.json({
     success: true,
@@ -56,7 +110,6 @@ app.get('/api/test-vectors', (req, res) => {
   });
 });
 
-// 3. AI Status and Configuration
 app.get('/api/ai-status', (req, res) => {
   res.json({
     success: true,
@@ -85,7 +138,9 @@ app.post('/api/ai-config', (req, res) => {
   res.status(400).json({ success: false, error: 'Invalid provider configuration parameters' });
 });
 
-// 4. Primary Registration & Document Verification Endpoint
+// ==============================================================================
+// 5. PRIMARY REGISTRATION & DOCUMENT FORENSIC VERIFICATION (V1 Compatibility)
+// ==============================================================================
 app.post('/api/verify', async (req, res) => {
   try {
     const {
@@ -138,6 +193,11 @@ app.post('/api/verify', async (req, res) => {
     }
     if (!parsedDoc.fields.dob && req.body.dob) {
       parsedDoc.fields.dob = req.body.dob;
+    }
+
+    // Auto-populate applicant name from document if not explicitly provided
+    if ((!effectiveApplicant.name || effectiveApplicant.name === 'Anonymous Participant') && parsedDoc.fields.name) {
+      effectiveApplicant.name = parsedDoc.fields.name;
     }
 
     // 3. Gemini Multimodal Analysis if configured
@@ -246,7 +306,9 @@ app.post('/api/verify', async (req, res) => {
   }
 });
 
-// 5. Drop-in AWS Textract Adapter Endpoint for fintrust.ai
+// ==============================================================================
+// 6. DROP-IN AWS TEXTRACT ADAPTER
+// ==============================================================================
 app.post('/api/v1/adapters/aws-textract', async (req, res) => {
   try {
     const {
@@ -290,7 +352,9 @@ app.post('/api/v1/adapters/aws-textract', async (req, res) => {
   }
 });
 
-// 6. Registrations Feed for Organizer Dashboard
+// ==============================================================================
+// 7. REGISTRATIONS & ORGANIZER ACTIONS
+// ==============================================================================
 app.get('/api/registrations', (req, res) => {
   const { status, filter } = req.query;
   let list = dedupService.getAllRegistrations();
@@ -311,7 +375,6 @@ app.get('/api/registrations', (req, res) => {
   });
 });
 
-// 7. Manual Organizer Action
 app.post('/api/registrations/:id/action', (req, res) => {
   const { id } = req.params;
   const { action, notes } = req.body;
@@ -352,7 +415,9 @@ app.post('/api/registrations/:id/action', (req, res) => {
   });
 });
 
-// 8. Venue Check-In Desk Endpoint (Scan QR code at venue)
+// ==============================================================================
+// 8. VENUE GATE CHECK-IN DESK (V1 Compatibility)
+// ==============================================================================
 app.post('/api/check-in/:id', (req, res) => {
   const { id } = req.params;
   const record = dedupService.getRegistrationById(id);
@@ -377,7 +442,9 @@ app.post('/api/check-in/:id', (req, res) => {
   });
 });
 
-// 9. Export Attendee Roster to CSV
+// ==============================================================================
+// 9. EXPORTS & DASHBOARD STATS
+// ==============================================================================
 app.get('/api/export-csv', (req, res) => {
   const list = dedupService.getAllRegistrations();
   const headers = ['Registration ID', 'Name', 'Email', 'College', 'Doc Type', 'ID Number', 'Age', 'Trust Score', 'Status', 'Check-In Status', 'Timestamp'];
@@ -403,7 +470,6 @@ app.get('/api/export-csv', (req, res) => {
   res.send(csvContent);
 });
 
-// 10. Dashboard Stats
 app.get('/api/stats', (req, res) => {
   const stats = dedupService.getStats();
   const list = dedupService.getAllRegistrations();
@@ -423,7 +489,6 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
-// 11. Event Configuration Rules Management
 app.get('/api/event-config', (req, res) => {
   res.json({ success: true, config: currentEventConfig });
 });
@@ -437,20 +502,46 @@ app.put('/api/event-config', (req, res) => {
   });
 });
 
-// 12. Reset Demo Data
 app.post('/api/reset-demo', (req, res) => {
   dedupService.registrations = [];
   dedupService.idIndex.clear();
   dedupService.imageHashIndex.clear();
   dedupService.seedInitialData();
+  db.seedInitialData();
   currentEventConfig = { ...DEFAULT_EVENT_CONFIG };
 
   res.json({
     success: true,
-    message: 'System database restored to clean initial seed state.'
+    message: 'System database and seed records restored to clean initial state.'
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`[fintrust.ai Trust Engine] Server running on http://localhost:${PORT}`);
+// Central 404 handler for undefined API routes
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({
+      success: false,
+      error: `API route not found: ${req.method} ${req.path}`
+    });
+  }
+  next();
 });
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('[Internal Error]', err);
+  res.status(err.status || 500).json({
+    success: false,
+    error: err.message || 'Internal server error occurred.'
+  });
+});
+
+// Only start the server if executed directly (e.g. node server/index.js)
+// When imported as a serverless function (Vercel), app is exported without port collision
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`[fintrust.ai & Hackathon OS v2] Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

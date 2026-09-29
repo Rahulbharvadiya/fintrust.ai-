@@ -1,14 +1,28 @@
+// Dual-Mode Sidebar with Full Hackathon OS v2 Navigation & Theme Controls
 import React from 'react';
 import { 
-  UserCheck, ShieldCheck, Sliders, 
-  RotateCcw, Sparkles, KeyRound,
-  Shield, ChevronRight
+  ShieldCheck, Users, HelpCircle, UploadCloud, 
+  Radar, Award, Calendar, Sliders, RotateCcw, 
+  Sparkles, KeyRound, ChevronRight
 } from 'lucide-react';
 
+export type MainTabType = 
+  | 'identity-verification'
+  | 'team-matchmaking'
+  | 'mentor-helpdesk'
+  | 'project-submission'
+  | 'fraud-radar'
+  | 'judging-deliberation'
+  | 'live-operations';
+
+export type ThemePreference = 'light' | 'dark';
+
 interface SidebarProps {
-  activeTab: 'participant' | 'organizer';
-  setActiveTab: (tab: 'participant' | 'organizer') => void;
+  activeTab: MainTabType;
+  setActiveTab: (tab: MainTabType) => void;
   reviewCount: number;
+  themePreference?: ThemePreference;
+  setThemePreference?: (pref: ThemePreference) => void;
   onOpenRules: () => void;
   onOpenAiConfig: () => void;
   onResetDemo: () => void;
@@ -26,294 +40,290 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside style={{
-      width: '260px',
-      minWidth: '260px',
-      backgroundColor: '#FFFFFF',
-      borderRight: '1px solid #E2E8F0',
+      width: '270px',
+      minWidth: '270px',
+      backgroundColor: 'var(--bg-surface)',
+      borderRight: '1px solid var(--border-color)',
       display: 'flex',
       flexDirection: 'column',
-      padding: '24px 18px',
-      minHeight: '100vh'
+      justifyContent: 'space-between',
+      padding: '20px 16px',
+      minHeight: '100vh',
+      boxShadow: 'var(--shadow-subtle)',
+      transition: 'background-color 200ms ease, border-color 200ms ease'
     }}>
-      
-      {/* Swiss FinTech Brand Header */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-        paddingBottom: '20px',
-        marginBottom: '20px',
-        borderBottom: '1px solid #E2E8F0'
-      }}>
+      <div>
+        {/* Brand Logo & Title */}
         <div style={{
-          width: '38px',
-          height: '38px',
-          borderRadius: '8px',
-          backgroundColor: '#2563EB',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          color: '#FFFFFF',
-          boxShadow: '0 2px 4px rgba(37, 99, 235, 0.2)'
+          gap: '12px',
+          paddingBottom: '18px',
+          marginBottom: '18px',
+          borderBottom: '1px solid var(--border-color)'
         }}>
-          <Shield size={20} />
-        </div>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <span style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', letterSpacing: '-0.02em' }}>
-              FinTrust<span style={{ color: '#2563EB' }}>.ai</span>
-            </span>
-          </div>
-          <p style={{ fontSize: '11px', color: '#64748B', fontWeight: 500 }}>
-            Identity Trust Gateway
-          </p>
-        </div>
-      </div>
-
-      {/* Main Navigation Section */}
-      <div style={{
-        fontSize: '11px',
-        fontWeight: 700,
-        textTransform: 'uppercase',
-        letterSpacing: '0.06em',
-        color: '#64748B',
-        marginBottom: '8px',
-        paddingLeft: '4px'
-      }}>
-        Operations
-      </div>
-
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <button
-          onClick={() => setActiveTab('participant')}
-          id="tab-participant"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '10px 12px',
-            borderRadius: '8px',
-            border: activeTab === 'participant' ? '1px solid #BFDBFE' : '1px solid transparent',
-            backgroundColor: activeTab === 'participant' ? '#EFF6FF' : 'transparent',
-            color: activeTab === 'participant' ? '#2563EB' : '#475569',
-            fontWeight: activeTab === 'participant' ? 600 : 500,
-            fontSize: '13px',
-            cursor: 'pointer',
-            transition: 'all 0.15s ease'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <UserCheck size={18} color={activeTab === 'participant' ? '#2563EB' : '#64748B'} />
-            <span>Applicant Portal</span>
-          </div>
-          {activeTab === 'participant' && <ChevronRight size={16} color="#2563EB" />}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('organizer')}
-          id="tab-organizer"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '10px 12px',
-            borderRadius: '8px',
-            border: activeTab === 'organizer' ? '1px solid #BFDBFE' : '1px solid transparent',
-            backgroundColor: activeTab === 'organizer' ? '#EFF6FF' : 'transparent',
-            color: activeTab === 'organizer' ? '#2563EB' : '#475569',
-            fontWeight: activeTab === 'organizer' ? 600 : 500,
-            fontSize: '13px',
-            cursor: 'pointer',
-            transition: 'all 0.15s ease'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <ShieldCheck size={18} color={activeTab === 'organizer' ? '#2563EB' : '#64748B'} />
-            <span>Compliance Desk</span>
-          </div>
-          {reviewCount > 0 ? (
-            <span style={{
-              backgroundColor: '#FEF2F2',
-              color: '#991B1B',
-              border: '1px solid #FECACA',
-              padding: '2px 7px',
-              borderRadius: '9999px',
-              fontSize: '11px',
-              fontWeight: 700
-            }}>
-              {reviewCount}
-            </span>
-          ) : activeTab === 'organizer' ? (
-            <ChevronRight size={16} color="#2563EB" />
-          ) : null}
-        </button>
-      </nav>
-
-      {/* Evaluation & Tools Section */}
-      <div style={{
-        fontSize: '11px',
-        fontWeight: 700,
-        textTransform: 'uppercase',
-        letterSpacing: '0.06em',
-        color: '#64748B',
-        marginTop: '28px',
-        marginBottom: '8px',
-        paddingLeft: '4px'
-      }}>
-        Compliance Tools
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <button
-          onClick={onToggleTestVectors}
-          id="btn-sidebar-scenarios"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '10px 12px',
-            borderRadius: '8px',
-            border: '1px solid transparent',
-            backgroundColor: 'transparent',
-            color: '#475569',
-            fontWeight: 500,
-            fontSize: '13px',
-            cursor: 'pointer',
-            transition: 'all 0.15s ease'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#F8FAFC'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Sparkles size={18} color="#2563EB" />
-            <span>Test Vectors</span>
-          </div>
-          <span style={{
-            fontSize: '11px',
-            fontWeight: 600,
-            padding: '2px 6px',
-            borderRadius: '4px',
-            backgroundColor: '#EFF6FF',
-            color: '#2563EB',
-            border: '1px solid #BFDBFE'
-          }}>
-            8 Vectors
-          </span>
-        </button>
-
-        <button
-          onClick={onOpenRules}
-          id="btn-sidebar-rules"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '10px 12px',
-            borderRadius: '8px',
-            border: '1px solid transparent',
-            backgroundColor: 'transparent',
-            color: '#475569',
-            fontWeight: 500,
-            fontSize: '13px',
-            cursor: 'pointer',
-            transition: 'all 0.15s ease'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#F8FAFC'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
-        >
-          <Sliders size={18} color="#64748B" />
-          <span>Eligibility Policy</span>
-        </button>
-
-        <button
-          onClick={onOpenAiConfig}
-          id="btn-sidebar-aiconfig"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '10px 12px',
-            borderRadius: '8px',
-            border: '1px solid transparent',
-            backgroundColor: 'transparent',
-            color: '#475569',
-            fontWeight: 500,
-            fontSize: '13px',
-            cursor: 'pointer',
-            transition: 'all 0.15s ease'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#F8FAFC'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
-        >
-          <KeyRound size={18} color="#64748B" />
-          <span>API Key & Engine</span>
-        </button>
-      </div>
-
-      {/* System Status & Reset Demo */}
-      <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid #E2E8F0' }}>
-        
-        {/* Institutional Trust Badge */}
-        <div style={{
-          padding: '12px',
-          borderRadius: '8px',
-          backgroundColor: '#F8FAFC',
-          border: '1px solid #E2E8F0',
-          marginBottom: '12px'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <span style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              backgroundColor: '#10B981',
-              boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.2)'
-            }} />
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#0F172A' }}>
-              Trust Engine Online
-            </span>
-          </div>
-          <p style={{ fontSize: '11px', color: '#64748B' }}>
-            Forensic Vision & Sybil Guard
-          </p>
-        </div>
-
-        {/* Reset Demo Button */}
-        <button
-          onClick={onResetDemo}
-          id="btn-sidebar-reset"
-          style={{
-            width: '100%',
-            padding: '8px 12px',
-            fontSize: '12px',
-            fontWeight: 500,
-            backgroundColor: '#FFFFFF',
-            color: '#64748B',
-            border: '1px solid #E2E8F0',
-            borderRadius: '6px',
-            cursor: 'pointer',
+          <div style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #4F46E5 0%, #22D3EE 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '8px',
-            transition: 'all 0.15s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#F8FAFC';
-            e.currentTarget.style.color = '#0F172A';
-            e.currentTarget.style.borderColor = '#CBD5E1';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#FFFFFF';
-            e.currentTarget.style.color = '#64748B';
-            e.currentTarget.style.borderColor = '#E2E8F0';
-          }}
-          title="Reset registrations to initial seed state"
-        >
-          <RotateCcw size={14} />
-          <span>Reset Demo Records</span>
-        </button>
+            color: '#FFFFFF',
+            boxShadow: '0 4px 10px rgba(79, 70, 229, 0.35)'
+          }}>
+            <ShieldCheck size={22} />
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                FinTrust<span style={{ color: 'var(--brand-primary)' }}>.ai</span>
+              </span>
+            </div>
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600 }}>
+              Hackathon OS • v2.0
+            </p>
+          </div>
+        </div>
 
+        {/* SECTION 1: PARTICIPANT PORTAL */}
+        <div style={{
+          fontSize: '10px',
+          fontWeight: 800,
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          color: 'var(--text-dim)',
+          marginBottom: '8px',
+          paddingLeft: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <span>Participant Portal</span>
+          <span style={{
+            fontSize: '9px',
+            padding: '1px 5px',
+            borderRadius: '3px',
+            backgroundColor: 'var(--status-ok-bg)',
+            color: 'var(--status-ok-text)',
+            fontWeight: 700
+          }}>
+            Fintech Clean
+          </span>
+        </div>
+
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginBottom: '20px' }}>
+          {[
+            { id: 'identity-verification', label: 'ID Verification & Pass', icon: ShieldCheck },
+            { id: 'team-matchmaking', label: 'Team Matchmaking Hub', icon: Users },
+            { id: 'mentor-helpdesk', label: 'Mentor Helpdesk Queue', icon: HelpCircle },
+            { id: 'project-submission', label: 'Project Submission', icon: UploadCloud }
+          ].map((item) => {
+            const Icon = item.icon;
+            const isSel = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id as MainTabType)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '9px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: isSel ? '1px solid var(--border-active)' : '1px solid transparent',
+                  backgroundColor: isSel ? 'var(--brand-glow)' : 'transparent',
+                  color: isSel ? 'var(--brand-primary)' : 'var(--text-secondary)',
+                  fontWeight: isSel ? 700 : 500,
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 150ms ease'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Icon size={16} />
+                  <span>{item.label}</span>
+                </div>
+                {isSel && <ChevronRight size={14} />}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* SECTION 2: ORGANIZER & SOC COMMAND CENTER */}
+        <div style={{
+          fontSize: '10px',
+          fontWeight: 800,
+          textTransform: 'uppercase',
+          letterSpacing: '0.08em',
+          color: 'var(--text-dim)',
+          marginBottom: '8px',
+          paddingLeft: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <span>SOC Command Center</span>
+          <span style={{
+            fontSize: '9px',
+            padding: '1px 5px',
+            borderRadius: '3px',
+            backgroundColor: 'var(--status-warn-bg)',
+            color: 'var(--status-warn-text)',
+            fontWeight: 700
+          }}>
+            Forensic Dark
+          </span>
+        </div>
+
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+          {[
+            { id: 'fraud-radar', label: 'Fraud Radar & Sybil Graph', icon: Radar, badge: reviewCount > 0 ? reviewCount : null },
+            { id: 'judging-deliberation', label: 'Judging & Deliberation', icon: Award },
+            { id: 'live-operations', label: 'Live Operations & Gates', icon: Calendar }
+          ].map((item) => {
+            const Icon = item.icon;
+            const isSel = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id as MainTabType)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '9px 12px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: isSel ? '1px solid var(--border-active)' : '1px solid transparent',
+                  backgroundColor: isSel ? 'var(--brand-glow)' : 'transparent',
+                  color: isSel ? 'var(--brand-primary)' : 'var(--text-secondary)',
+                  fontWeight: isSel ? 700 : 500,
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 150ms ease'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Icon size={16} />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge ? (
+                  <span style={{
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    backgroundColor: '#F59E0B',
+                    color: '#0B0F19',
+                    padding: '1px 6px',
+                    borderRadius: '10px'
+                  }}>
+                    {item.badge}
+                  </span>
+                ) : (
+                  isSel && <ChevronRight size={14} />
+                )}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+
+      {/* FOOTER: THEME SWITCHER & SYSTEM TOOLS */}
+      <div style={{
+        paddingTop: '16px',
+        borderTop: '1px solid var(--border-color)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px'
+      }}>
+        {/* Action Buttons: Test Scenarios, Rules, AI */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <button
+            onClick={onToggleTestVectors}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '7px 10px',
+              borderRadius: 'var(--radius-xs)',
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'var(--text-secondary)',
+              fontSize: '12px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
+          >
+            <Sparkles size={14} color="var(--brand-primary)" />
+            <span>8 Test Scenarios</span>
+          </button>
+
+          <button
+            onClick={onOpenRules}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '7px 10px',
+              borderRadius: 'var(--radius-xs)',
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'var(--text-secondary)',
+              fontSize: '12px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
+          >
+            <Sliders size={14} color="var(--text-muted)" />
+            <span>Eligibility Rules</span>
+          </button>
+
+          <button
+            onClick={onOpenAiConfig}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '7px 10px',
+              borderRadius: 'var(--radius-xs)',
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'var(--text-secondary)',
+              fontSize: '12px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
+          >
+            <KeyRound size={14} color="var(--text-muted)" />
+            <span>AI Cloud Engine</span>
+          </button>
+
+          <button
+            onClick={onResetDemo}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '7px 10px',
+              borderRadius: 'var(--radius-xs)',
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'var(--status-danger-text)',
+              fontSize: '12px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
+          >
+            <RotateCcw size={14} />
+            <span>Reset Database</span>
+          </button>
+        </div>
       </div>
     </aside>
   );
