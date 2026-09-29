@@ -99,4 +99,8 @@
 \n- Implemented mathematical Z-score normalization standardizing scores across harsh and lenient judges.
 - Added scoring variance detection highlighting controversial submissions for jury deliberation.
 - Built CSV deliberation report exporter.
+\n## Day 15 — September 29, 2026
+### Dual-Mode Design Polish & Theme Harmonization
+- Designed curated Fintech Light palette for hacker registration and Forensic SOC Dark palette for command centers.
+- Harmonized all CSS tokens, glows, cards, and input field wrappers across both themes.
 \n
