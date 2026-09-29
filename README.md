@@ -1,25 +1,27 @@
 <div align="center">
 
 # 🛡️ fintrust.ai
-### *Autonomous Multi-Engine Forensic Verification, Biometric Face Match & Sybil Defense System*
+### *Autonomous Multi-Engine Forensic Identity Verification, Biometric Face Match & Hackathon OS v2.0*
 
-[![System Audit](https://img.shields.io/badge/System%20Audit-49%2F49%20PASSED%20(100%25)-00C853?style=for-the-badge&logo=checkmarx&logoColor=white)](https://github.com/Token-Goblins/Hackingly-live)
-[![Unit Tests](https://img.shields.io/badge/Test%20Suite-15%2F15%20PASSED-00E676?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/Token-Goblins/Hackingly-live)
-[![Frontend](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite%208%20%7C%20TypeScript-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://github.com/Token-Goblins/Hackingly-live)
-[![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%205-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://github.com/Token-Goblins/Hackingly-live)
-[![AI OCR](https://img.shields.io/badge/Vision%20AI-AWS%20Textract%20%2B%20Gemini%20Flash-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://github.com/Token-Goblins/Hackingly-live)
-[![UIDAI Security](https://img.shields.io/badge/UIDAI-Verhoeff%20Checksum-blueviolet?style=for-the-badge&logo=shield&logoColor=white)](https://github.com/Token-Goblins/Hackingly-live)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Rahulbharvadiya%2Ffintrust.ai--181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![Test Suite](https://img.shields.io/badge/All%20Tests-69%2F69%20PASSED%20(100%25)-00E676?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![Frontend](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite%208%20%7C%20TypeScript-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%205-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![Database](https://img.shields.io/badge/Database-Supabase%20%7C%20PostgreSQL%20%2B%20RLS-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![Deployment](https://img.shields.io/badge/Deployment-Vercel%20Serverless%20Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/LICENSE)
 
 <p align="center">
-  <b>Eliminating registration fraud, forged student IDs, Sybil syndicate attacks, and false rejections with sub-second AI verification and cryptographic venue check-ins.</b>
+  <b>Eliminating registration fraud, forged student credentials, Sybil syndicate attacks, and false rejections with mathematical verification, forensic vision, and a full-lifecycle Hackathon Operating System.</b>
 </p>
 
-[✨ Live Features](#-key-capabilities) •
+[✨ Key Capabilities](#-key-capabilities) •
 [🏗️ System Architecture](#️-system-architecture) •
 [🧪 Test Vectors (100% Pass)](#-tested-scenarios--vectors) •
-[🚀 Quick Start](#-quick-start-guide) •
+[🚀 Quick Start Guide](#-quick-start-guide) •
 [📡 API Specification](#-api-specification) •
-[🛡️ Forensic Engine](#️-deep-forensic-engine-deep-dive)
+[🛡️ Deep Forensic Engine](#️-deep-forensic-engine-deep-dive) •
+[☁️ Vercel & Supabase](#️-deployment-guide-supabase--vercel)
 
 ---
 
@@ -27,13 +29,16 @@
 
 ## 📌 Executive Summary & Problem Solved (PS-003)
 
-Organizers of premier events, hackathons, and institutional programs face critical vulnerabilities during registration and gate check-in:
-1. **Photoshop & Canva Forgeries**: Applicants alter graduation years on College IDs or birth years on government IDs to bypass eligibility limits.
-2. **Sybil & Syndicate Attacks**: The same individual or group registers under multiple aliases or switches teams using the same ID credentials.
-3. **Impersonation**: Attackers submit high-trust IDs belonging to friends or web captures while uploading their own selfie.
-4. **Catastrophic False Rejections**: Crude automated filters reject real participants due to lighting/shadows or minor name variations (e.g. *Aditya K.* vs *Aditya Kumar*), frustrating attendees.
+Organizers of premier hackathons, tech conferences, and institutional events encounter recurring security vulnerabilities and administrative bottlenecks:
+1. **Photoshop & Canva Forgeries**: Applicants alter graduation years on College IDs or birth years on government IDs to bypass eligibility rules.
+2. **Sybil Syndicate Attacks**: The same individual or group registers under multiple aliases or switches teams using duplicate credentials to game prize pools.
+3. **Biometric Impersonation**: Fraudulent applicants upload high-trust IDs belonging to friends or web captures while uploading their own face.
+4. **Catastrophic False Rejections**: Rigid, crude OCR filters reject legitimate attendees due to poor lighting, glare, or minor nickname variations (e.g. *Aditya K.* vs *Aditya Kumar*).
+5. **Fragmented Event Operations**: Fragmented platforms for team formation, mentor ticketing, blind judging deliberation, and venue gate check-in cause chaos on event day.
 
-**fintrust.ai** provides an end-to-end, dual-engine AI verification ecosystem featuring **mathematical checksum verification (Verhoeff)**, **Error Level Analysis (ELA)**, **biometric facial landmark similarity**, **graph-based Sybil tracking**, and an **institutional human-in-the-loop review queue** to guarantee **Zero False-Positive auto-rejections**.
+**fintrust.ai** is a unified, dual-engine solution:
+* An **Autonomous AI Identity & Eligibility Trust Engine** featuring **UIDAI Verhoeff Dihedral $D_5$ checksums**, **Error Level Analysis (ELA)**, **128-d cosine biometric facial matching**, and **cross-registration Sybil graph tracking** with a guaranteed **Zero False-Positive Human-in-the-Loop review queue**.
+* An **Enterprise Hackathon OS (v2.0)** providing team formation with invite codes, real-time mentor helpdesk queues, cryptographic SHA-256 HMAC submission receipts, Z-score normalized judging deliberation, and live gate scanning.
 
 ---
 
@@ -42,17 +47,17 @@ Organizers of premier events, hackathons, and institutional programs face critic
 <table>
   <tr>
     <td width="50%">
-      <h3>🔍 Multi-Document OCR & Indian ID Parsing</h3>
+      <h3>🔍 Multi-Document OCR & Indian ID Engine</h3>
       <ul>
         <li>Native parsing for <b>Aadhaar</b> (12-digit & masked <code>XXXX-XXXX-1234</code>), <b>PAN Card</b> (individual 4th-char validation), <b>College ID Cards</b>, <b>Voter ID</b>, and <b>Driving License</b>.</li>
-        <li>Dual-engine support: <b>AWS Textract Key-Value Adapter</b> and <b>Google Gemini Vision API</b> with automatic fallback.</li>
+        <li>Dual-engine support: <b>AWS Textract Key-Value Adapter</b> and <b>Google Gemini Vision API</b> with seamless zero-dependency local fallback.</li>
       </ul>
     </td>
     <td width="50%">
-      <h3>🔢 UIDAI Verhoeff Checksum Validation</h3>
+      <h3>🔢 UIDAI Verhoeff Checksum Validator</h3>
       <ul>
-        <li>Authenticates Aadhaar digits against the official UIDAI dihedral $D_5$ group multiplication algorithm.</li>
-        <li>Instantly detects transposed or fabricated numbers with mathematical certainty before hitting any network.</li>
+        <li>Authenticates Aadhaar digits against the official UIDAI dihedral $D_5$ permutation group multiplication algorithm.</li>
+        <li>Instantly detects transposed or fabricated numbers with mathematical certainty before touching any external network.</li>
       </ul>
     </td>
   </tr>
@@ -61,14 +66,14 @@ Organizers of premier events, hackathons, and institutional programs face critic
       <h3>🔬 Deep Forensic ELA & Typography Analysis</h3>
       <ul>
         <li>Analyzes image compression anomalies, pixel gradient discontinuities, and font variance.</li>
-        <li>Flags selective alterations in graduation dates, birth years, and names commonly edited via image editors.</li>
+        <li>Flags selective alterations in graduation dates, birth years, and names commonly edited via image software.</li>
       </ul>
     </td>
     <td width="50%">
       <h3>👤 Biometric Facial Landmark Matcher</h3>
       <ul>
-        <li>Extracts facial geometry and calculates 128-d cosine similarity between ID document photo and live webcam selfie.</li>
-        <li>Rejects spoofed selfies, web screenshots, and mismatched participant submissions.</li>
+        <li>Extracts facial geometry and calculates 128-dimensional cosine similarity between ID document photo and live webcam selfie.</li>
+        <li>Interactive webcam interface with retake capabilities, framing guidelines, and anti-spoofing thresholds.</li>
       </ul>
     </td>
   </tr>
@@ -76,15 +81,15 @@ Organizers of premier events, hackathons, and institutional programs face critic
     <td width="50%">
       <h3>🕸️ Sybil & Cross-Registration Graph</h3>
       <ul>
-        <li>Tracks normalized ID hashes and biometric signatures across all submissions.</li>
+        <li>Tracks normalized ID hashes, educational domains, and biometric signatures across all submissions.</li>
         <li>Intercepts duplicate identity reuse under different aliases and detects syndicate account flooding.</li>
       </ul>
     </td>
     <td width="50%">
       <h3>🎟️ Cryptographic Event Pass & Gate Check-In</h3>
       <ul>
-        <li>Generates high-resolution digital participant tickets with tamper-evident QR codes and HMAC signatures.</li>
-        <li>Integrated on-site venue scanner verifies attendee status at registration desks in &lt;150ms.</li>
+        <li>Generates high-resolution digital participant tickets with tamper-evident QR codes and HMAC-SHA256 signatures.</li>
+        <li>Integrated on-site venue scanner verifies attendee status at registration desks in &lt;150ms with anti-replay defense.</li>
       </ul>
     </td>
   </tr>
@@ -92,238 +97,221 @@ Organizers of premier events, hackathons, and institutional programs face critic
 
 ---
 
+## 🎨 Dual-Mode Interactive UI Experience
+
+fintrust.ai features a tailored **dual-mode design system** with a persistent top-right theme switch:
+
+* ☀️ **Fintech Light Mode**: Clean, familiar, high-contrast palette modeled after modern KYC & banking interfaces (Stripe, Razorpay) designed for hackers and student onboarding.
+* 🌙 **Forensic SOC Dark Mode**: High-density cybersecurity console modeled after modern fraud analysis labs (Stripe Radar, Datadog) optimized for organizers, compliance leads, and judges.
+
+---
+
 ## 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
-    subgraph Client ["Client Layer (React 19 + TypeScript + Vite)"]
-        UI[Participant Registration & Webcam]
-        Admin[Organizer Dashboard & Review Console]
-        Pass[Dynamic Cryptographic Event Ticket]
-        Scanner[Venue Desk QR Scanner]
+    subgraph Client ["Client Layer (React 19 + TypeScript + Vite 8)"]
+        UI[Participant Portal & Live Webcam Capture]
+        Teams[Team Matchmaking & Directory Hub]
+        Helpdesk[Mentor Helpdesk Queue Console]
+        Submissions[Project Pipeline & Cryptographic Receipt]
+        Judging[Judging Rubric & Z-Score Console]
+        LiveOps[Live Operations & Stage Control]
+        Ticket[Cryptographic Digital Pass & QR Scanner]
     end
 
-    subgraph Gateway ["Express 5 REST API Gateway"]
-        Auth[Validation & Payload Normalizer]
-        TestRunner[Test Vector Engine]
-        ConfigCtrl[Event Rules & AI Providers Config]
+    subgraph Gateway ["Express 5 REST API Gateway & Security"]
+        Auth[JWT Role-Based Access Control]
+        RateLimiter[Sliding-Window Rate Limiter]
+        Sanitizer[Payload Sanitizer & Security Headers]
     end
 
-    subgraph CoreEngine ["fintrust.ai Trust Pipeline"]
+    subgraph TrustPipeline ["Autonomous Trust Engine Pipeline"]
         direction TB
-        V1["1. UIDAI Verhoeff Validator\n(Dihedral D5 Checksum)"]
-        V2["2. Dual-Engine OCR\n(AWS Textract / Gemini Vision)"]
-        V3["3. Forensic ELA & Font Engine\n(Tamper & Typography Anomaly)"]
-        V4["4. Biometric Face Matcher\n(128-d Facial Landmarks & Cosine)"]
-        V5["5. Sybil & Identity Graph\n(Cross-Registration Deduplication)"]
-        V6["6. Dynamic Eligibility Rules\n(Age Limits, Accreditation, Expiry)"]
+        V1["1. UIDAI Verhoeff Checksum\n(Dihedral D5 Group Multiplication)"]
+        V2["2. Dual-Engine OCR\n(AWS Textract / Gemini Vision / Local)"]
+        V3["3. Forensic ELA & Typography\n(Pixel Gradient & Font Anomaly)"]
+        V4["4. Biometric Face Matcher\n(128-d Facial Landmarks & Cosine Similarity)"]
+        V5["5. Sybil & Duplicate Graph\n(Cross-Registration Collision Detection)"]
+        V6["6. Dynamic Eligibility Rules\n(Age Limits, Accredited Colleges, Expiry)"]
     end
 
-    subgraph DecisionMatrix ["Zero False Positive Decision Engine"]
-        AutoApprove["VERIFIED (Score >= 80%)\nIssued Cryptographic Ticket"]
-        ReviewQueue["REVIEW_NEEDED (Score 55%-79%)\nCompliance 1-Click Review"]
-        AutoReject["REJECTED (Score < 55%)\nSpecific Fraud Reason Flagged"]
+    subgraph DataStore ["Data & Persistence Layer"]
+        Supabase[(Supabase PostgreSQL + RLS)]
+        Memory[(High-Efficiency In-Memory Engine)]
     end
 
     UI -->|Multipart Document + Selfie| Gateway
-    Gateway --> CoreEngine
+    Teams & Helpdesk & Submissions & Judging & LiveOps --> Gateway
+    Gateway --> TrustPipeline
     V1 --> V2 --> V3 --> V4 --> V5 --> V6
-    V6 --> DecisionMatrix
-    AutoApprove --> Pass
-    ReviewQueue --> Admin
-    Scanner -->|Scan QR| Gateway
+    TrustPipeline <--> DataStore
+    Ticket <-->|HMAC Verification| Gateway
 ```
+
+---
+
+## 🚀 Version 2.0: Hackathon OS Enterprise Modules
+
+Version 2.0 expands fintrust.ai into a **complete event management operating system**:
+
+### 🛡️ 1. Multi-Tier Role-Based Authentication & Social Portfolios
+* **Supported Roles**: `PARTICIPANT`, `MENTOR`, `JUDGE`, `ORGANIZER`.
+* **Stateless JWTs**: Signed with secure secrets and enforced across protected endpoints.
+* **Social Portfolio Import**: Automatically ingests public repositories, top languages, and avatars from **GitHub**, **Google**, and **LinkedIn**.
+* **Searchable Skill Graph**: Participants configure skills (`React`, `PyTorch`, `Go`, `Rust`), university affiliations (`IIT Madras`, `Stanford`), track selections, and dietary requirements.
+
+### 👥 2. Team Formation & Collaboration Engine
+* **Matchmaking Directory**: Solo hackers can search for teams filtering by missing skills (e.g., `Needs UI/UX & Backend`).
+* **Enforced Capacity Caps**: Strict member cap enforcement (default 4) preventing oversize teams.
+* **6-Character Secret Invite Codes**: Seamless invite codes (`HACK-XXXX`) for instant team joins.
+* **Automated Webhook Payloads**: Pre-formatted webhook templates for Discord Embeds and Slack Blocks on team creation and member joins.
+
+### 💡 3. Live Mentor Helpdesk Queue
+* **Domain-Specific Routing**: Ticket routing categorized by `AI_ML`, `FRONTEND`, `BACKEND`, `CLOUD_DEVOPS`, `UI_UX_DESIGN`, and `PITCH_PRESENTATION`.
+* **Urgency Tiers**: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`.
+* **Lifecycle Tracking**: Ticket status transitions (`OPEN` → `CLAIMED` → `RESOLVED`) with resolution timestamps and real-time queue SLA metrics.
+
+### 📦 4. Project Submissions & Cryptographic Receipts
+* **Git Repository Integrity**: Validates public repository links, commit counts, and branch structures.
+* **Media & Demos**: Validates video demos (YouTube/Loom), presentation slide decks (PDF), and architecture snapshots.
+* **Synchronized Cutoff Clocks**: Server-synced deadline countdowns with strict submission cutoffs.
+* **Cryptographic HMAC Receipts**: Automatically computes a tamper-evident SHA-256 HMAC digital receipt (`SHA256:...`) verifiable independently via `/api/submissions/:id/verify-receipt`.
+* **Celebration Effects**: Built-in `canvas-confetti` celebration triggers upon successful lock-in.
+
+### ⚖️ 5. Judging Deliberation & Z-Score Normalization
+* **4-Pillar Evaluation Rubric**:
+  * *Innovation & Originality* (30%)
+  * *Technical Depth & Execution* (30%)
+  * *Real-World Feasibility* (25%)
+  * *UI/UX Polish* (15%)
+* **Blind Review Mode**: Masks team names, institutions, and hacker identities during judging to eliminate cognitive bias.
+* **Z-Score Normalization Algorithm**: Eliminates judge variance (harsh vs. lenient judges):
+  $$Z = \frac{X - \mu_{\text{judge}}}{\sigma_{\text{judge}}}$$
+  Rescaled to standardized 0–100 scores to produce mathematically fair leaderboards.
+* **CSV Deliberation Export**: One-click download of all raw and normalized evaluation results.
+
+### ⏱️ 6. Live Operations & Stage Control
+* **Dynamic Schedule Shifts**: Organizers can shift event milestones by $+N$ minutes with automatic alert broadcasts to attendees.
+* **Stage Queue Management**: Real-time presenter queue (`WAITING` → `PRESENTING` → `COMPLETED`).
+* **Real-Time Push**: Server-Sent Events (SSE) `/api/live/stream` streams live updates to attendees without page refreshes.
 
 ---
 
 ## 🧪 Tested Scenarios & Vectors
 
-The engine comes preloaded with **8 comprehensive test vectors** replicating real-world registration submissions:
+fintrust.ai comes pre-loaded with **8 realistic test scenarios** ready for one-click demonstration:
 
-| Vector ID | Applicant | Document Type | Test Condition / Scenario | Expected Outcome | Forensic Score |
+| Vector ID | Applicant | Document Type | Test Condition / Attack Vector | System Decision | Forensic Trust Score |
 | :--- | :--- | :--- | :--- | :---: | :---: |
-| **TEST-01** | Rohan Sharma | Aadhaar Card | Valid 12-digit Aadhaar, Verhoeff checksum valid, clean matching selfie | `VERIFIED` | **98%** (Auto-Pass) |
+| **TEST-01** | Rohan Sharma | Aadhaar Card | Valid 12-digit Aadhaar, Verhoeff valid, clean matching selfie | `VERIFIED` | **98%** (Auto-Pass) |
 | **TEST-02** | Ananya Verma | Aadhaar Card | Digitally altered DOB (Photoshop font anomaly, compression variance) | `REJECTED` | **38%** (Tamper Flag) |
-| **TEST-03** | Vikram Patel | Aadhaar Card | Reusing Rohan's ID number under different applicant name (Sybil attack) | `REJECTED` | **15%** (Sybil Fraud) |
+| **TEST-03** | Vikram Patel | Aadhaar Card | Reusing Rohan's ID number under a new name (Sybil syndicate attack) | `REJECTED` | **15%** (Sybil Fraud) |
 | **TEST-04** | Priya Sundaram | College ID | Legitimate active student ID from accredited university (IIT Madras) | `VERIFIED` | **98%** (Auto-Pass) |
-| **TEST-05** | Arjun Mehta | College ID | Expired student ID (Graduation year 2023 vs current year eligibility) | `REJECTED` | **42%** (Expired ID) |
-| **TEST-06** | Sneha Roy | PAN Card | Legitimate PAN card but mismatched selfie (Biometric Impersonation) | `REJECTED` | **32%** (Face Mismatch) |
-| **TEST-07** | Aditya K. | PAN Card | Legitimate document with minor nickname variation (*Aditya K.* vs *Aditya Kumar*) | `REVIEW_NEEDED` | **72%** (Human Queue) |
-| **TEST-08** | Kavita Joshi | College ID | Low-light / blurred capture passing threshold with noise-reduction OCR | `VERIFIED` | **92%** (Auto-Pass) |
-
----
-
-## 💻 Interactive UI Walkthrough
-
-<details>
-<summary><b>1. Participant Registration & Live Verification Console</b> (Click to expand)</summary>
-
-- Multi-document selector supporting Aadhaar, PAN, Student ID, Voter ID, and DL.
-- Integrated webcam selfie capture with live framing guidelines.
-- Instant breakdown showing:
-  - Verhoeff mathematical verification status.
-  - OCR extraction confidence & recognized fields.
-  - Facial landmark similarity score with visual comparison.
-  - ELA tampering heatmap and anomaly alerts.
-</details>
-
-<details>
-<summary><b>2. Institutional Organizer Dashboard & Fraud Intelligence Radar</b> (Click to expand)</summary>
-
-- Real-time KPIs: Total Registrations, Auto-Approved, Flagged In Queue, Rejected Sybils, Average Trust Score.
-- Interactive Filterable Audit Table: Search by name, document ID, status, or date.
-- One-Click Review Queue: Review flagged applicants (e.g. nickname differences) with side-by-side photo comparison and approve/reject instantly.
-- Live Venue Desk Simulator: Test attendee QR code scanning at entrance gates.
-- Export to Official CSV: One-click export for sponsor/venue roster reporting.
-</details>
-
-<details>
-<summary><b>3. Dynamic Rules & AI Configuration Modals</b> (Click to expand)</summary>
-
-- Configure minimum and maximum participant age (e.g., 18 to 26).
-- Toggle accepted ID document formats.
-- Customize list of accredited university domains.
-- Live toggle between simulated OCR mock mode and production **AWS Textract** / **Google Gemini Vision** credentials.
-</details>
-
-<details>
-<summary><b>4. Cryptographic Participant Event Pass</b> (Click to expand)</summary>
-
-- Issued automatically upon verification.
-- Includes unique Ticket ID (`TKT-XXXXXXXX`), security validation hash, applicant photograph, tier badge, and dynamic QR Code.
-- Built-in print and download actions for attendees.
-</details>
+| **TEST-05** | Arjun Mehta | College ID | Expired student ID (Graduation year past eligibility threshold) | `REJECTED` | **42%** (Expired ID) |
+| **TEST-06** | Sneha Roy | PAN Card | Valid PAN card but mismatched selfie (Biometric Impersonation) | `REJECTED` | **32%** (Face Mismatch) |
+| **TEST-07** | Aditya K. | PAN Card | Valid document with minor nickname variation (*Aditya K.* vs *Aditya Kumar*) | `REVIEW_NEEDED` | **72%** (Human Queue) |
+| **TEST-08** | Kavita Joshi | College ID | Low-light camera capture passing threshold with noise-reduction OCR | `VERIFIED` | **92%** (Auto-Pass) |
 
 ---
 
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
-- **Node.js** (v18 or higher recommended)
-- **npm** (v9 or higher)
+* **Node.js** (v18 or higher recommended)
+* **npm** (v9 or higher)
 
-### 1. Clone & Install Dependencies
+### 1. Clone & Install
 ```bash
 # Clone the repository
-git clone https://github.com/Token-Goblins/Hackingly-live.git
-cd Hackingly-live
+git clone https://github.com/Rahulbharvadiya/fintrust.ai-.git
+cd fintrust.ai-
 
-# Install root dependencies (Express, AWS SDK, Google GenAI, Concurrently)
+# Install backend dependencies
 npm install
 
-# Install client frontend dependencies (React 19, Lucide, Canvas Confetti, Vite)
+# Install frontend dependencies
 npm install --prefix client
 ```
 
-### 2. Run Both Server & Client Concurrently
+### 2. Run Locally
 ```bash
+# Start both Backend (Port 5000) and Frontend (Port 5173) concurrently
 npm run dev
 ```
 
-> **Services will boot immediately:**
-> - **Backend API Server**: `http://localhost:5000`
-> - **Frontend Dashboard**: `http://localhost:5173`
+* **Frontend Application**: `http://localhost:5173`
+* **Backend REST API**: `http://localhost:5000`
 
 ---
 
-## 🧪 Automated Testing & Verification
+## 🧪 Comprehensive Automated Test Suites
 
-The repository includes a comprehensive 2-tier testing suite verifying 100% of functional and security requirements.
+The repository contains an enterprise testing harness covering 100% of forensic algorithms and API endpoints:
 
-### 1. Unit & Core Algorithmic Tests (15/15 Passed)
 ```bash
+# Run the combined test suite (41/41 passing)
+npm test
+
+# 1. Run Core Algorithmic & Forensic Tests (15 tests)
 node server/test_runner.js
-```
-*Verifies UIDAI Verhoeff checksum algorithm, Indian ID regex parsers, forensic tamper analysis, face matcher, Sybil graph, and eligibility engine.*
 
-### 2. Full System & Security Audit (49/49 Passed - 100% Coverage)
-```bash
-# Ensure server is running on http://localhost:5000, then execute:
-node server/full_system_audit.js
+# 2. Run Hackathon OS v2.0 Enterprise Tests (26 tests)
+node server/v2_test_runner.js
+
+# 3. Run Live HTTP API System Audit (28 endpoints)
+node server/v2_system_audit.js
+
+# 4. Verify Frontend Production Build
+npm run build --prefix client
 ```
-*Executes end-to-end integration tests across all 8 test vectors, AWS Textract adapter, human review queues, QR venue desk check-ins, CSV roster exports, and security stress tests.*
 
 ---
 
 ## 📡 API Specification
 
 <details>
-<summary><b>View Endpoints Documentation</b> (Click to expand)</summary>
+<summary><b>View API Endpoint Reference</b> (Click to expand)</summary>
 
-### 1. Engine Health & Status
-```http
-GET /api/health
-```
-**Response (200 OK):**
-```json
-{
-  "status": "ONLINE",
-  "service": "fintrust.ai Identity & Eligibility Trust Engine",
-  "version": "2.5.0-production",
-  "activeEvent": "AI Identity Verification Challenge",
-  "aiServices": { "awsTextract": "CONNECTED", "geminiVision": "READY" }
-}
-```
+### Authentication & Profiles
+* `POST /api/auth/register` — Register participant with email, password, role, and skill tags.
+* `POST /api/auth/login` — Authenticate and receive a signed JWT token.
+* `POST /api/auth/social-import` — Import developer portfolio from GitHub/Google.
+* `GET /api/profiles` — Search participant directory by skill tags and team availability.
 
-### 2. Verify Registration & Document
-```http
-POST /api/verify
-Content-Type: application/json
-```
-**Request Body:**
-```json
-{
-  "applicant": {
-    "name": "Rohan Sharma",
-    "email": "rohan@example.com",
-    "institution": "IIT Delhi"
-  },
-  "documentType": "AADHAAR",
-  "rawOcrText": "GOVERNMENT OF INDIA\nRohan Sharma\nDOB: 14/06/2005\n5829 4832 9182",
-  "documentImage": "data:image/jpeg;base64,...",
-  "selfieImage": "data:image/jpeg;base64,..."
-}
-```
-**Response (200 OK):**
-```json
-{
-  "success": true,
-  "record": {
-    "id": "REG-839210",
-    "status": "VERIFIED",
-    "trustScore": 98,
-    "verifications": {
-      "checksum": { "valid": true, "method": "UIDAI Verhoeff" },
-      "forensics": { "isTampered": false, "authenticityScore": 96 },
-      "biometrics": { "matched": true, "similarityScore": 94 },
-      "sybil": { "isDuplicate": false }
-    },
-    "ticket": {
-      "ticketId": "TKT-991204",
-      "qrCodeData": "..."
-    }
-  }
-}
-```
+### Identity Verification & Forensics
+* `POST /api/verify` — Submit document image + selfie for automated forensic trust evaluation.
+* `GET /api/test-vectors` — List the 8 preloaded test vectors.
+* `POST /api/test-vectors/:id/run` — Run an automated test vector through the engine.
+* `POST /api/registrations/:id/action` — Compliance officer manual review override (Approve/Reject).
+* `GET /api/stats` — Real-time registration metrics, trust scores, and queue counts.
 
-### 3. Venue Desk Gate QR Check-In
-```http
-POST /api/check-in/:id
-Content-Type: application/json
-```
+### Team Collaboration
+* `POST /api/teams` — Create a team with member caps, project pitch, and skill requirements.
+* `POST /api/teams/:id/join` — Join a team using a 6-character secret invite code.
+* `GET /api/teams` — List and filter active hackathon teams.
 
-### 4. Compliance Review Decision Override
-```http
-POST /api/registrations/:id/action
-Content-Type: application/json
+### Mentor Helpdesk
+* `POST /api/helpdesk/tickets` — Submit a mentor helpdesk guidance ticket.
+* `POST /api/helpdesk/tickets/:id/claim` — Mentor claims a ticket.
+* `POST /api/helpdesk/tickets/:id/resolve` — Mark ticket resolved with notes.
+* `GET /api/helpdesk/stats` — Live queue metrics and SLA wait times.
 
-{ "action": "VERIFIED", "notes": "Approved by fintrust.ai Compliance Desk" }
-```
+### Project Submissions & Receipts
+* `POST /api/submissions` — Save draft or submit final project code, media, and track.
+* `GET /api/submissions/:id/verify-receipt` — Verify SHA-256 HMAC cryptographic submission receipt.
 
-### 5. Export Registrations to CSV
-```http
-GET /api/export-csv
-```
+### Judging Deliberation
+* `GET /api/judging/rubric` — Fetch active 4-pillar evaluation rubric.
+* `POST /api/judging/scores` — Submit judge rubric scores.
+* `GET /api/judging/leaderboard` — Get Z-score normalized leaderboard with variance flags.
+* `GET /api/judging/export-csv` — Export complete judging deliberation matrix as CSV.
+
+### Live Operations & Digital Pass Check-In
+* `GET /api/live/stream` — Real-time Server-Sent Events (SSE) notification stream.
+* `POST /api/live/schedule-shift` — Shift timeline milestones by $+N$ minutes.
+* `POST /api/check-in/sign-waiver` — Record digital waiver signature.
+* `POST /api/check-in/verify-pass` — On-site QR scanner gate pass verification.
 
 </details>
 
@@ -331,194 +319,133 @@ GET /api/export-csv
 
 ## 🛡️ Deep Forensic Engine Deep Dive
 
-### 1. Mathematical Verhoeff Checksum
-The UIDAI Aadhaar number includes a check digit calculated using permutations and non-commutative multiplication over the dihedral group $D_5$:
+### 1. Mathematical UIDAI Verhoeff Checksum
+The 12-digit Aadhaar number utilizes a mathematical check digit calculated via dihedral group $D_5$ permutations:
 $$c = \sum_{i=1}^{n} d(i, p(i, a_i)) = 0$$
-This detects 100% of all single-digit transcription errors and 100% of all adjacent transposition errors without requiring an external database query.
+* Detects **100% of all single-digit entry errors**.
+* Detects **100% of all adjacent transposition errors** $(ab \leftrightarrow ba)$.
+* Validates numbers offline with zero external network dependency.
 
 ### 2. Error Level Analysis (ELA) & Typography Forensics
-Digital manipulation using editing software alters the quantization table and resaving compression levels in modified regions. The forensic analyzer checks:
-- Micro-variance in pixel noise around critical data fields (DOB, Student ID numbers).
-- Font family and size dissonance against government/institutional typography templates.
-- Metadata signature inspection for graphic design tools.
+Digital manipulation in photo editors alters quantization tables and resaving compression levels in modified zones:
+* Inspects micro-variance in pixel gradient noise around critical date and ID fields.
+* Detects font family and weight dissonance against standard institutional templates.
+* Detects graphic editing metadata signatures.
 
 ### 3. Biometric Facial Landmark Distance
-Face verification uses 128-dimensional facial landmark feature extraction to compute cosine similarity:
+Face verification extracts 128-dimensional facial landmark feature representations and computes cosine similarity:
 $$\text{Similarity} = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}$$
-Scores $\ge 0.75$ validate facial identity with high confidence while accounting for variations in lighting, pose, and glasses.
+Scores $\ge 0.75$ confirm facial biometric identity with high confidence while accounting for minor variations in lighting, pose, and glasses.
 
-### 4. Sybil & Identity Reuse Graph
-Maintains an in-memory hash index of:
-- Normalized National ID numbers (Verhoeff-normalized Aadhaar, PAN format).
-- Biometric facial vectors.
-- Educational institutional email domains.
+### 4. Cross-Registration Sybil Detection
+Maintains an in-memory collision index of:
+* Normalized National ID numbers (Verhoeff-normalized Aadhaar, PAN).
+* Biometric facial embeddings.
+* Institutional email domains.
 
-Any attempt to re-register under another alias automatically flags a **Sybil Attack** and blocks the registration.
+Any attempt to re-register under another alias automatically flags a **Sybil Attack** and routes the record to the compliance queue.
+
+---
+
+## ☁️ Deployment Guide: Supabase & Vercel
+
+fintrust.ai is architected for zero-configuration deployment:
+
+### ▲ Deploy to Vercel (1-Click Ready)
+The repository includes a ready-to-use [`vercel.json`](file:///c:/Users/WIN%2011/Desktop/Hackathon/vercel.json) and serverless entrypoint ([`api/index.js`](file:///c:/Users/WIN%2011/Desktop/Hackathon/api/index.js)):
+1. Push your repository to GitHub.
+2. Import the project on [Vercel](https://vercel.com).
+3. Vercel automatically detects the configuration and deploys the Vite frontend and Express serverless API.
+4. (Optional) In **Project Settings → Environment Variables**, add your custom keys (`JWT_SECRET`, `SUPABASE_URL`, `GEMINI_API_KEY`).
+
+### 🗄️ Connect Supabase PostgreSQL (Optional)
+If you wish to persist data to a live cloud database rather than the built-in in-memory engine:
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Open the **SQL Editor** in Supabase and execute [`supabase/schema.sql`](file:///c:/Users/WIN%2011/Desktop/Hackathon/supabase/schema.sql).
+3. (Optional) Run [`supabase/seed.sql`](file:///c:/Users/WIN%2011/Desktop/Hackathon/supabase/seed.sql) to load initial seed records.
+4. Add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` to your environment variables.
 
 ---
 
 ## 📁 Repository Directory Structure
 
 ```
-fintrust.ai/
+fintrust.ai-/
 ├── client/                      # React 19 Frontend Application
-│   ├── public/                  # Static assets and favicons
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── AdminDashboard.tsx      # Compliance & organizer command center
-│   │   │   ├── AiConfigModal.tsx       # AWS / Gemini credentials settings
-│   │   │   ├── ParticipantPortal.tsx   # Live registration & verification form
-│   │   │   ├── ParticipantTicket.tsx   # Digital cryptographic pass with QR
-│   │   │   ├── RulesModal.tsx          # Dynamic event eligibility config
-│   │   │   ├── Sidebar.tsx             # FinTrust.ai navigation & status triggers
-│   │   │   └── TestCasesDrawer.tsx     # 8 interactive test vectors
-│   │   ├── App.tsx                     # Main application layout & state
-│   │   ├── index.css                   # Modern styling & design system
-│   │   ├── types.ts                    # TypeScript data definitions
-│   │   └── main.tsx                    # React client entry point
-│   ├── index.html               # Web application shell
-│   ├── package.json             # Frontend dependencies & scripts
-│   ├── tsconfig.json            # TypeScript configuration
-│   └── vite.config.ts           # Vite bundler configuration
+│   │   │   ├── AdminDashboard.tsx           # Compliance & organizer command center
+│   │   │   ├── AiConfigModal.tsx            # Live AWS & Gemini credentials modal
+│   │   │   ├── JudgingConsole.tsx           # Judging rubrics & Z-score deliberation
+│   │   │   ├── LiveOperationsConsole.tsx    # Schedule shifts & stage presentation queue
+│   │   │   ├── MentorHelpdeskQueue.tsx      # Mentor ticket routing & claim queue
+│   │   │   ├── ParticipantPortal.tsx        # Registration form & live camera retake
+│   │   │   ├── ParticipantTicket.tsx        # Cryptographic pass with dynamic QR code
+│   │   │   ├── ProjectSubmissionPipeline.tsx# Git code verification & HMAC receipts
+│   │   │   ├── RulesModal.tsx               # Dynamic event eligibility configuration
+│   │   │   ├── Sidebar.tsx                  # FinTrust navigation & tool triggers
+│   │   │   ├── TeamCollaborationHub.tsx     # Matchmaking directory & team invite codes
+│   │   │   ├── TestCasesDrawer.tsx          # 8 interactive test vectors drawer
+│   │   │   └── TrustScoreGauge.tsx          # Real-time circular trust score gauge
+│   │   ├── App.tsx                          # App shell, routing & top-right theme switch
+│   │   ├── index.css                        # Complete design system (Light & Dark tokens)
+│   │   ├── types.ts                         # TypeScript data interfaces
+│   │   └── main.tsx                         # React 19 entry point
+│   ├── package.json                         # Client dependencies
+│   └── vite.config.ts                       # Vite 8 configuration
 │
 ├── server/                      # Express 5 Backend Trust Engine & Hackathon OS
 │   ├── config/                  # Central configuration & rate limits
+│   ├── db/                      # Supabase client & in-memory database adapter
 │   ├── middleware/              # Security headers, sanitization, rate limiter, JWT RBAC
-│   ├── db/                      # Supabase client & unified in-memory adapter
-│   ├── routes/                  # Auth, Profiles, Teams, Helpdesk, Submissions, Judging, LiveOps, Gate
+│   ├── routes/                  # Modular routes (Auth, Profiles, Teams, Helpdesk, Submissions, Judging, LiveOps)
 │   ├── services/
-│   │   ├── authService.js              # Multi-tier auth & GitHub/Google portfolio import
-│   │   ├── teamService.js              # Team caps, invite codes & webhook notifications
-│   │   ├── helpdeskService.js          # Mentor tickets & domain routing queue
-│   │   ├── submissionService.js        # Git validation, cutoffs & SHA-256 receipts
-│   │   ├── judgingService.js           # Blind review & deliberation CSV export
-│   │   ├── checkInService.js           # Digital passes & waiver signature validation
-│   │   ├── dedupService.js             # Sybil attack & duplicate graph service
-│   │   ├── documentParser.js           # Multi-document regex & structure parser
-│   │   ├── eligibilityEngine.js        # Age, college & event rules evaluator
-│   │   ├── faceMatcher.js              # Biometric landmark & cosine matcher
-│   │   ├── forensicEngine.js           # ELA tamper & font anomaly engine
-│   │   ├── geminiVisionService.js      # Google Gemini Vision API integration
-│   │   ├── realAwsService.js           # AWS Textract client integration
-│   │   ├── testCases.js                # 8 preloaded hackathon test vectors
-│   │   ├── textractAdapter.js          # AWS Textract block compatibility adapter
-│   │   ├── ticketService.js            # Cryptographic event ticket generator
-│   │   └── verhoeff.js                 # UIDAI Dihedral D5 Verhoeff checksum
-│   ├── index.js                 # REST API endpoints & server setup
-│   ├── full_system_audit.js     # V1 49-point security audit script
-│   ├── test_runner.js           # V1 15-point unit test suite
-│   ├── v2_test_runner.js        # V2 26-point test suite (100% pass)
-│   └── v2_system_audit.js       # V2 28-point live HTTP endpoint audit (100% pass)
+│   │   ├── authService.js                   # Multi-tier auth & portfolio import
+│   │   ├── checkInService.js                # Digital passes & waiver validation
+│   │   ├── dedupService.js                  # Sybil attack & duplicate graph service
+│   │   ├── documentParser.js                # Multi-document regex & structure parser
+│   │   ├── eligibilityEngine.js             # Age, university accreditation & rules
+│   │   ├── faceMatcher.js                   # Biometric landmark & cosine similarity
+│   │   ├── forensicEngine.js                # ELA tamper & font anomaly engine
+│   │   ├── geminiVisionService.js           # Google Gemini Multimodal Vision API
+│   │   ├── helpdeskService.js               # Mentor ticket claim & SLA tracking
+│   │   ├── judgingService.js                # Weighted rubrics & Z-score normalization
+│   │   ├── realAwsService.js                # AWS Textract client integration
+│   │   ├── submissionService.js             # Git validation & SHA-256 HMAC receipts
+│   │   ├── teamService.js                   # Member caps, invite codes & webhooks
+│   │   ├── testCases.js                     # 8 preloaded hackathon test vectors
+│   │   ├── textractAdapter.js               # AWS Textract block adapter
+│   │   ├── ticketService.js                 # Cryptographic pass generator
+│   │   └── verhoeff.js                      # UIDAI Dihedral D5 Verhoeff checksum
+│   ├── index.js                             # Express application & server setup
+│   ├── test_runner.js                       # 15 core forensic unit tests
+│   ├── v2_test_runner.js                    # 26 Hackathon OS v2 integration tests
+│   └── v2_system_audit.js                   # 28 live HTTP endpoint audit tests
 │
 ├── supabase/                    # Supabase Database Schemas
-│   ├── schema.sql               # Full PostgreSQL schema with RLS, triggers & functions
-│   └── seed.sql                 # Production seed records (hackers, teams, rubrics, schedule)
+│   ├── schema.sql                           # Full PostgreSQL schema with RLS & functions
+│   └── seed.sql                             # Seed records (users, teams, rubrics, schedule)
 │
 ├── api/
-│   └── index.js                 # Vercel serverless function entrypoint
+│   └── index.js                             # Vercel serverless function entrypoint
 │
-├── vercel.json                  # Vercel production deployment configuration
-├── .env.example                 # Environment variables specification
-├── package.json                 # Monorepo scripts & dependencies
-└── README.md                    # Interactive documentation & system manual
+├── vercel.json                              # Vercel deployment configuration
+├── .env.example                             # Environment variable template
+├── package.json                             # Monorepo scripts & dependencies
+├── LICENSE                                  # MIT License
+└── README.md                                # System documentation & manual
 ```
 
 ---
 
-## 🚀 Version 2.0: Hackathon OS & Live Event Operations Architecture
+## 👤 Author & Maintainer
 
-Version 2.0 elevates fintrust.ai into a **full-lifecycle Hackathon Operating System**, delivering enterprise efficiency, high-throughput security, and zero-downtime event operations.
-
-### 🛡️ 1. Multi-Tier Role-Based Authentication & Social Portfolio
-- **Roles**: `PARTICIPANT`, `MENTOR`, `JUDGE`, `ORGANIZER`.
-- **JWT & RBAC Guards**: Stateless tokens with timing-safe validation and role gates.
-- **Social Import Connectors**: Ingests public repositories, languages, top skills, and avatars from **GitHub**, **Google**, and **LinkedIn**.
-- **Searchable Skill Graph**: Users configure skill tags (`React`, `Go`, `PyTorch`, `Rust`), affiliations (`IIT Madras`, `Stanford`), track selections, and dietary/accessibility requirements.
-
-### 👥 2. Team Formation & Collaboration Engine
-- **Matchmaking Directory**: Filterable showcase allowing solo hackers to search for teams by **missing skill sets** (e.g. `Needs PyTorch and UI/UX`).
-- **Capacity Caps**: Strict enforcement of team member limits (default 4) backed by PostgreSQL check constraints and memory atomicity.
-- **Invite Codes**: 6-character secret invite codes (`HACK-XXXX`) for frictionless team onboarding.
-- **Automated Webhooks**: Generates and dispatches formatted Discord Embeds and Slack Blocks whenever teams are formed or members join.
-
-### 💡 3. Live Mentor Helpdesk Queue
-- **Domain Routing**: Teams submit guidance requests categorized by `AI_ML`, `FRONTEND`, `BACKEND`, `CLOUD_DEVOPS`, `UI_UX_DESIGN`, or `PITCH_PRESENTATION`.
-- **Urgency Levels**: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`.
-- **Mentor Tracking**: Real-time mentor availability indicator (`is_available`), physical room/booth locations, and ticket claiming lifecycle (`OPEN` -> `CLAIMED` -> `RESOLVED`).
-
-### 📦 4. Project Submissions & Cryptographic Receipts
-- **Code Repository Pipeline**: Verifies public GitHub/GitLab links, commit counts, and branch integrity.
-- **Media Hosting**: Validates YouTube/Loom video embeds, presentation slide decks (PDF), architecture diagrams, and gallery snapshots.
-- **Synchronized Countdown Clocks**: Server-synchronized deadline countdown with strict cutoffs preventing post-deadline lock-ins.
-- **Draft Saving Mode**: Iterative saving without locking.
-- **SHA-256 HMAC Receipts**: Computes tamper-evident cryptographic receipts (`SHA256:...`) verifiable independently via `/api/submissions/:id/verify-receipt`.
-- **Celebration Trigger**: Returns a boolean trigger wired for client-side `canvas-confetti`.
-
-### ⚖️ 5. Judging Console, Blind Reviews & Z-Score Normalization
-- **Weighted Rubric Console**: 4 core evaluation pillars:
-  - *Innovation & Originality* (30%)
-  - *Technical Depth & Execution* (30%)
-  - *Real-World Feasibility* (25%)
-  - *UI/UX & Polish* (15%)
-- **Blind Review Mode**: Automatically masks team names and member identities during judging to eliminate human bias.
-- **Z-Score Normalization**: Standardizes raw scores across harsh vs lenient judge pools:
-  $$Z = \frac{X - \mu_{judge}}{\sigma_{judge}}$$
-  Scaled to standard 0-100 scores to generate mathematically fair leaderboards.
-- **Deliberation Analytics**: Automatically flags variance discrepancies (high disagreement among judges).
-- **CSV Deliberation Export**: Generates complete tabular reports of raw and normalized evaluations.
-
-### ⏱️ 6. Live Operations Timeline & Digital Check-In
-- **Schedule Shifts**: Organizers can shift event milestones by $+N$ minutes with cascading adjustments and automatic announcements.
-- **Real-Time Push**: Server-Sent Events (SSE) `/api/live/stream` pushes schedule changes and alerts live to connected clients.
-- **Digital QR Gate Check-In**: Instant venue arrival check-in with anti-replay defense.
-- **Legal Waiver Signatures**: Verifies legal safety and IP agreements before admitting participants.
+Created and maintained by **Rahul Bharvadiya**:
+* GitHub: [@Rahulbharvadiya](https://github.com/Rahulbharvadiya)
+* Repository: [Rahulbharvadiya/fintrust.ai-](https://github.com/Rahulbharvadiya/fintrust.ai-)
 
 ---
 
-## ☁️ Deployment Guide: Supabase & Vercel
+## 📄 License
 
-### 🗄️ 1. Supabase Setup
-1. Create a project at [supabase.com](https://supabase.com).
-2. Open the **SQL Editor** in your Supabase dashboard.
-3. Paste and execute the contents of [`supabase/schema.sql`](file:///c:/Users/WIN%2011/Desktop/Hackathon/supabase/schema.sql).
-4. (Optional) Run [`supabase/seed.sql`](file:///c:/Users/WIN%2011/Desktop/Hackathon/supabase/seed.sql) to populate initial hackathon seed data.
-5. In your `.env` or Vercel Environment Variables, configure:
-   ```env
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-   JWT_SECRET=your-production-jwt-secret-key
-   ```
-*(Note: If Supabase credentials are not provided, the platform automatically runs on the integrated zero-dependency in-memory store with 100% feature parity!)*
-
-### ▲ 2. Vercel Deployment
-1. Connect your repository to [vercel.com](https://vercel.com).
-2. Vercel automatically detects [`vercel.json`](file:///c:/Users/WIN%2011/Desktop/Hackathon/vercel.json):
-   - Serverless API handler: [`api/index.js`](file:///c:/Users/WIN%2011/Desktop/Hackathon/api/index.js)
-   - Static client build: `client/dist`
-3. Add your environment variables in the Vercel Project Settings (`JWT_SECRET`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`).
-4. Deploy with 1 click!
-
----
-
-## 🧪 Comprehensive Verification & Test Suites
-
-```bash
-# Run both test suites (41 tests, 100% pass)
-npm test
-
-# Run V1 Identity & Forensic engine tests (15 tests)
-node server/test_runner.js
-
-# Run V2 Hackathon OS core tests (26 tests)
-node server/v2_test_runner.js
-
-# Run live HTTP endpoint integration audit (28 checks)
-node server/v2_system_audit.js
-```
-
----
-
-## 🤝 Contributing & License
-
-Developed with ❤️ for **fintrust.ai**. Distributed under the **MIT License**.
-Contributions, pull requests, and feature suggestions are welcome!
+This project is licensed under the **MIT License** — see the [LICENSE](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/LICENSE) file for details.
