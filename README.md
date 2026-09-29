@@ -446,14 +446,31 @@ fintrust.ai-/
 
 ---
 
+## 🔗 Quick Links & Access
+
+| Resource | Description | Direct Link |
+| :--- | :--- | :--- |
+| 🚀 **Live Production App** | Interactive full-lifecycle web platform deployed on Vercel | [**fintrust-ai-iota.vercel.app**](https://fintrust-ai-iota.vercel.app/) |
+| 💻 **GitHub Repository** | Complete source code, test suites, and configurations | [**Rahulbharvadiya/fintrust.ai-**](https://github.com/Rahulbharvadiya/fintrust.ai-) |
+| 📓 **15-Day Sprint Log** | Daily engineering journal & technical milestones | [**docs/DEVELOPMENT_LOG.md**](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/docs/DEVELOPMENT_LOG.md) |
+| 🗄️ **Database Schema** | Enterprise Supabase / PostgreSQL schema with RLS & types | [**supabase/schema.sql**](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/supabase/schema.sql) |
+| 🧪 **Database Seed Data** | Hackathon demo participants, teams, rubrics & schedules | [**supabase/seed.sql**](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/supabase/seed.sql) |
+| ⚙️ **Vercel Config** | Serverless Express API & Vite static build configuration | [**vercel.json**](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/vercel.json) |
+| 📜 **MIT License** | Open-source licensing terms & copyright | [**LICENSE**](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/LICENSE) |
+| 👤 **Author & Creator** | Rahul Bharvadiya GitHub Profile | [**@Rahulbharvadiya**](https://github.com/Rahulbharvadiya) |
+
+---
+
 ## 👤 Author & Maintainer
 
 Created and maintained by **Rahul Bharvadiya**:
-* GitHub: [@Rahulbharvadiya](https://github.com/Rahulbharvadiya)
-* Repository: [Rahulbharvadiya/fintrust.ai-](https://github.com/Rahulbharvadiya/fintrust.ai-)
+* **Live App**: [https://fintrust-ai-iota.vercel.app/](https://fintrust-ai-iota.vercel.app/)
+* **GitHub**: [@Rahulbharvadiya](https://github.com/Rahulbharvadiya)
+* **Repository**: [https://github.com/Rahulbharvadiya/fintrust.ai-](https://github.com/Rahulbharvadiya/fintrust.ai-)
 
 ---
 
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [LICENSE](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/LICENSE) file for details.
+
