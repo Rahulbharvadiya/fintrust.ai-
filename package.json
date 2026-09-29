@@ -2,6 +2,7 @@
   "name": "fintrust-ai",
   "version": "1.0.0",
   "description": "fintrust.ai — Autonomous AI Identity & Eligibility Trust Engine",
+  "homepage": "https://fintrust-ai-iota.vercel.app/",
   "main": "index.js",
   "scripts": {
     "server": "node server/index.js",

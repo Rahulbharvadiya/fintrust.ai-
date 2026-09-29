@@ -3,18 +3,25 @@
 # 🛡️ fintrust.ai
 ### *Autonomous Multi-Engine Forensic Identity Verification, Biometric Face Match & Hackathon OS v2.0*
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-fintrust--ai--iota.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://fintrust-ai-iota.vercel.app/)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Rahulbharvadiya%2Ffintrust.ai--181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
 [![Test Suite](https://img.shields.io/badge/All%20Tests-69%2F69%20PASSED%20(100%25)-00E676?style=for-the-badge&logo=vitest&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
 [![Frontend](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite%208%20%7C%20TypeScript-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://github.com/Rahulbharvadiya/fintrust.ai-)
 [![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%205-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
 [![Database](https://img.shields.io/badge/Database-Supabase%20%7C%20PostgreSQL%20%2B%20RLS-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
-[![Deployment](https://img.shields.io/badge/Deployment-Vercel%20Serverless%20Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://github.com/Rahulbharvadiya/fintrust.ai-)
+[![Deployment](https://img.shields.io/badge/Deployment-Vercel%20Production%20Live-success?style=for-the-badge&logo=vercel&logoColor=white)](https://fintrust-ai-iota.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/Rahulbharvadiya/fintrust.ai-/blob/main/LICENSE)
 
 <p align="center">
+  <br />
+  <a href="https://fintrust-ai-iota.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀%20OPEN%20LIVE%20DEMO-fintrust--ai--iota.vercel.app-6366F1?style=for-the-badge&logo=vercel&logoColor=white" height="38" alt="Open Live Demo" />
+  </a>
+  <br /><br />
   <b>Eliminating registration fraud, forged student credentials, Sybil syndicate attacks, and false rejections with mathematical verification, forensic vision, and a full-lifecycle Hackathon Operating System.</b>
 </p>
 
+[🌐 Live Demo (Vercel)](https://fintrust-ai-iota.vercel.app/) •
 [✨ Key Capabilities](#-key-capabilities) •
 [🏗️ System Architecture](#️-system-architecture) •
 [🧪 Test Vectors (100% Pass)](#-tested-scenarios--vectors) •
@@ -352,7 +359,8 @@ Any attempt to re-register under another alias automatically flags a **Sybil Att
 fintrust.ai is architected for zero-configuration deployment:
 
 ### ▲ Deploy to Vercel (1-Click Ready)
-The repository includes a ready-to-use [`vercel.json`](file:///c:/Users/WIN%2011/Desktop/Hackathon/vercel.json) and serverless entrypoint ([`api/index.js`](file:///c:/Users/WIN%2011/Desktop/Hackathon/api/index.js)):
+* 🌐 **Live Production URL**: [https://fintrust-ai-iota.vercel.app/](https://fintrust-ai-iota.vercel.app/)
+* The repository includes a ready-to-use [`vercel.json`](vercel.json) and serverless entrypoint ([`api/index.js`](api/index.js)):
 1. Push your repository to GitHub.
 2. Import the project on [Vercel](https://vercel.com).
 3. Vercel automatically detects the configuration and deploys the Vite frontend and Express serverless API.
