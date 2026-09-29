@@ -103,4 +103,7 @@
 ### Dual-Mode Design Polish & Theme Harmonization
 - Designed curated Fintech Light palette for hacker registration and Forensic SOC Dark palette for command centers.
 - Harmonized all CSS tokens, glows, cards, and input field wrappers across both themes.
+\n- Streamlined header theme toggle strictly to 2 options (Light with Sun icon, Dark with Moon icon).
+- Persisted user preference across sessions via `localStorage`.
+- Completed full audit: 69/69 automated test suites passing.
 \n
